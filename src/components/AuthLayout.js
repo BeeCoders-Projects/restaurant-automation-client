@@ -1,7 +1,7 @@
 import { ReactComponent as Logo } from "../img/Logo.svg";
 import LoginPage from "../pages/LoginPage";
 
-function AuthWrapper(){
+function AuthLayout(){
     return (
         <>
             <header className="h-32 bg-[#2D2929] flex justify-center items-center relative">
@@ -19,4 +19,4 @@ function AuthWrapper(){
     )
 }
 
-export default AuthWrapper;
+export default AuthLayout;
