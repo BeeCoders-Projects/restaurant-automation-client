@@ -1,3 +1,15 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import "./font.css";
+body .auth{
+    background: linear-gradient(63.18deg, #F5D840 0%, rgba(255, 255, 255, 0.73) 100%);
+}
+body .auth-container{
+    box-shadow: 17.0856px 20.5028px 17.0856px rgba(0, 0, 0, 0.34);
+}
+
+input:focus {
+    @apply focus:outline-none;
+    @apply focus:bg-neutral-300;
+}
