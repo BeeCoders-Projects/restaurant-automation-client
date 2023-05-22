@@ -17,6 +17,7 @@ export const loginUser = createAsyncThunk(
                 username,
                 password,
             })
+            console.log(headers, data);
             if (headers['authorization']) {
                 const token = headers['authorization']
                 window.localStorage.setItem('token', token);
