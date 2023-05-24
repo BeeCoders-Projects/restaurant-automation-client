@@ -28,7 +28,7 @@ export const loginUser = createAsyncThunk(
             return data
         } catch (error) {
             console.log(error)
-            return {message: error.request.response}
+            return error.response.data
         }
     },
 )
@@ -54,11 +54,10 @@ export const authSlice = createSlice({
             state.isLoading = false
             state.user = action.payload?.decodedToken?.sub
             state.token = action.payload?.token
-            console.log(action.payload)
             state.status = action.payload?.message
         },
         [loginUser.rejected]: (state, action) => {
-            state.status = action.payload.message
+            state.status = action.payload?.message
             state.isLoading = false
         },
     },

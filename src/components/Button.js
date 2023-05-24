@@ -14,7 +14,7 @@ function Button({
                     ...rest
                 }){
     const classes = className(rest.className,
-        'flex items-center py-1.5 hover:opacity-80',
+        'flex items-center py-1.5',
         {
             'opacity-80': loading,
             'bg-yellow-300': primary,
