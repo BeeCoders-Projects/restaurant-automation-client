@@ -1,5 +1,5 @@
 
-function DishLayout(){
+function DishItemList(){
     return (
         <>
             <div className="font-dark
@@ -27,4 +27,4 @@ function DishLayout(){
     )
 }
 
-export default DishLayout;
+export default DishItemList;

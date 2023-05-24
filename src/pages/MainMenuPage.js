@@ -1,4 +1,4 @@
-import DishLayout from "../components/DishLayout";
+import DishItemList from "../components/DishItemList";
 import React from "react";
 
 function MainMenuPage(){
@@ -6,7 +6,7 @@ function MainMenuPage(){
         <>
             {/*тут потом категории будем добавлять, боковое меню, хэдер 2 уровня*/}
             <div className="pt-44">
-                <DishLayout/>
+                <DishItemList/>
             </div>
         </>
     )
