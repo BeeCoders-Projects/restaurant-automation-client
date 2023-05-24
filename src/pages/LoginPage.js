@@ -9,7 +9,8 @@ import {useNavigate} from "react-router-dom";
 function LoginPage(){
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const [error, setError] = useState(false);
+    const [usernameError, setUsernameError] = useState(false);
+    const [passwordError, setPasswordError] = useState(false);
 
     const { status } = useSelector((state) => state.auth)
     const isAuth = useSelector(checkIsAuth)
@@ -21,8 +22,10 @@ function LoginPage(){
     }, [isAuth, navigate])
 
     const handleSubmit = () => {
-        if(username.length === 0 || password.length < 8){
-            setError(true)
+        if(username.length < 1 || username.length > 40 || username.includes(" ")){
+            setUsernameError(true)
+        }if(password.length < 8 || password.length > 40 || password.includes(" ")){
+            setPasswordError(true)
         }
         else {
             try {
@@ -43,8 +46,8 @@ function LoginPage(){
                            value={username}
                            onChange={(e) => setUsername(e.target.value)}
                            placeholder="Enter username"
-                           className={`rounded-full px-32 h-24 ${error && username.length ===0 ? "border-2 border-red-500" : ""}`}/>
-                    {error && username.length === 0 ?
+                           className={`rounded-full px-32 h-24 ${usernameError ? "border-2 border-red-500" : ""}`}/>
+                    {usernameError ?
                         <label className="absolute top-24 ml-8 text-red-600 text-2xl">*Username is in wrong format</label>:""}
                 </div>
                 <div className="relative flex flex-col ">
@@ -53,8 +56,8 @@ function LoginPage(){
                            value={password}
                            onChange={(e) => setPassword(e.target.value)}
                            placeholder="Enter password"
-                           className={`rounded-full px-32 h-24 ${error && password.length < 8 ? "border-2 border-red-500" : ""}`}/>
-                    {error && password.length < 8 ?
+                           className={`rounded-full px-32 h-24 ${passwordError ? "border-2 border-red-500" : ""}`}/>
+                    {passwordError ?
                     <label className="absolute top-24 ml-8 text-red-600 text-2xl">*Password is in wrong format</label>:""}
                 </div>
             </div>

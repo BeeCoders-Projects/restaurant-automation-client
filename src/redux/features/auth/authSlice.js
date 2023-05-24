@@ -56,7 +56,7 @@ export const authSlice = createSlice({
             state.status = action.payload?.message
         },
         [loginUser.rejected]: (state, action) => {
-            state.status = action.payload.message
+            state.status = action.payload?.message
             state.isLoading = false
         },
     },
