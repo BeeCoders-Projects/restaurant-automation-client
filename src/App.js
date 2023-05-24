@@ -1,5 +1,6 @@
 import AuthLayout from "./components/AuthLayout";
 import {Route, Routes} from 'react-router-dom';
+import MenuLayout from "./components/MenuLayout";
 import Navbar from "./components/Navbar";
 
 function App() {
@@ -8,6 +9,7 @@ function App() {
             <Routes>
                 <Route path="/" element={<Navbar/>}/>
                 <Route path="/auth" element={<AuthLayout/>}/>
+                <Route path="/mainMenu" element={<MenuLayout/>}/>
             </Routes>
         </div>
     );
