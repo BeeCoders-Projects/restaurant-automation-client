@@ -19,13 +19,17 @@ function Navbar (){
         dispatch(logout())
         window.localStorage.removeItem('token')
     }
+    const menuHandler = () => {
+        navigate('/mainMenu')
+    }
 
     return (
         <div>
             <h2>User: {user}</h2><br/>
             <p>Access token:</p>
             <p>{token}</p>
-            <Button primary className="p-2" onClick={logoutHandler}>Выйти</Button>
+            <Button primary className="p-2 mb-2" onClick={logoutHandler}>Выйти</Button>
+            <Button primary className="p-2" onClick={menuHandler}>Menu</Button>
         </div>
     )
 }
