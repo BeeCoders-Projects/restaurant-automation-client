@@ -3,7 +3,7 @@ function DishItem ({dish}) {
         backgroundImage: `url(${dish.icon || null})`,
     };
     return <div className="flex flex-wrap">
-        <div className="text-xl border border-zinc-200 rounded-xl px-12 py-12 pb-6 flex flex-col items-center">
+        <div className="text-xl border border-zinc-200 rounded-xl px-6 xl:px-12 py-12 pb-6 flex flex-col items-center">
             <div
                 className={`w-[300px] h-[125px] overflow-hidden rounded-xl mb-5 bg-cover bg-center`}
                 style={dynamicBgStyle}
