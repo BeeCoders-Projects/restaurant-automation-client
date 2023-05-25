@@ -48,7 +48,7 @@ function LoginPage(){
     }
     return(
         <form onSubmit={(e) => e.preventDefault()} className="relative flex items-center flex-col">
-            <h2 className="mb-12 text-[40px]">{isAdminLogin?"Please log in":"Please log table"}</h2>
+            <h2 className="mb-12 text-[40px]">{isAdminLogin?"Please log in":"Please log in table"}</h2>
             <p className="absolute text-2xl py-2 text-red-600 top-10">{status}</p>
             <div className="flex flex-col mb-11">
                 <div className="relative flex flex-col mb-11">
