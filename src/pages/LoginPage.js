@@ -81,7 +81,7 @@ function LoginPage(){
             <div className="flex mt-8 w-[540px] justify-between">
                 <div className="flex" onClick={() => setIsAdminLogin(false)}>
                     {isAdminLogin?  <IoMdSquareOutline size="42"/> : <IoMdCheckboxOutline size="42"/>}
-                    <label>Log table</label>
+                    <label>Log in table</label>
                 </div>
                 <div className="flex" onClick={() => setIsAdminLogin(true)}>
                     {isAdminLogin?  <IoMdCheckboxOutline size="42"/> : <IoMdSquareOutline size="42"/>}
