@@ -1,30 +1,23 @@
+import DishItem from "./DishItem";
+import {useDispatch, useSelector} from "react-redux";
+import {getMenuDishes} from "../redux/features/dishes/dishesSlice";
+import {useEffect} from "react";
 
 function DishItemList(){
-    return (
-        <>
-            <div className="font-dark
-                            grid grid-cols-3 gap-4">
-                {/*<div className="flex items-center justify-center grow*/}
-                {/*                text-xl w-[400px] h-[350px] bg-[#FFFFFF]*/}
-                {/*                border-b-[#E4E4E4] border-2 rounded-2xl*/}
-                {/*                pt-12 px-12 pb-6">*/}
-                {/*    <div>Dish 1</div>*/}
-                {/*</div>*/}
-                {/*<div className="flex items-center justify-center grow*/}
-                {/*                text-xl w-[400px] h-[350px] bg-[#FFFFFF]*/}
-                {/*                border-b-[#E4E4E4] border-2 rounded-2xl*/}
-                {/*                pt-12 px-12 pb-6">*/}
-                {/*    <div>Dish 1</div>*/}
-                {/*</div>*/}
-                {/*<div className="flex items-center justify-center grow*/}
-                {/*                text-xl w-[400px] h-[350px] bg-[#FFFFFF]*/}
-                {/*                border-b-[#E4E4E4] border-2 rounded-2xl*/}
-                {/*                pt-12 px-12 pb-6">*/}
-                {/*    <div>Dish 1</div>*/}
-                {/*</div>*/}
-            </div>
-        </>
-    )
+    const dispatch = useDispatch();
+    const {dishes} = useSelector((state) => state.dish)
+
+    console.log(dishes)
+
+    useEffect(() => {
+        dispatch(getMenuDishes())
+    }, [dispatch])
+
+    const dishesList = dishes?.map((dish, idx) => (<DishItem key={idx} dish={dish}/>))
+
+    return <>
+        {dishesList}
+    </>
 }
 
 export default DishItemList;
