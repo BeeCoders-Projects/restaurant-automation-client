@@ -1,7 +1,7 @@
+import * as React from "react";
 import DishItem from "./DishItem";
 import {useDispatch, useSelector} from "react-redux";
 import {getMenuDishes} from "../redux/features/dishes/dishesSlice";
-import {useEffect} from "react";
 
 function DishItemList(){
     const dispatch = useDispatch();
@@ -9,7 +9,7 @@ function DishItemList(){
 
     console.log(dishes)
 
-    useEffect(() => {
+    React.useEffect(() => {
         dispatch(getMenuDishes())
     }, [dispatch])
 
