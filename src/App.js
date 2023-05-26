@@ -5,7 +5,7 @@ import Navbar from "./components/Navbar";
 
 function App() {
     return (
-        <div className="w-full h-screen flex flex-col font-didactGothic">
+        <div className="w-full h-screen flex flex-col">
             <Routes>
                 <Route path="/" element={<Navbar/>}/>
                 <Route path="/auth" element={<AuthLayout/>}/>
