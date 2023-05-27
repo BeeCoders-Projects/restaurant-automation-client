@@ -14,11 +14,11 @@ function DishPage () {
                     <div className="flex flex-col items-end xl:w-[1280px] md:w-[740px]">
                         <div className="flex w-full">
                             <div
-                                className="w-[478px] h-[313px] overflow-hidden rounded-xl mb-5 bg-cover bg-center mr-8"
+                                className="min-w-[478px] h-[313px] overflow-hidden rounded-xl mb-5 bg-cover bg-center mr-8"
                                 style={dynamicBgStyle}
                             >
                             </div>
-                            <div className="max-w-[642px]">
+                            <div>
                                 <p className="text-4xl">Сет каліфорнія</p>
                                 <p className="text-xl pt-4">Копчений лосось з додаванням вугрю та крем-сиру. Подаємо на молочній булочці з ікрою тобіко та прикрашаємо нитками чилі.</p>
                                 <p className="text-xl pt-4">Копчений лосось, вугрь, крем-сир, молочна булочка, ікра тобіко, нитки чилі</p>
