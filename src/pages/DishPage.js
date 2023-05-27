@@ -1,6 +1,7 @@
 import Header from "../components/Header";
 import Button from "../components/Button"
 import React from "react";
+import Speciality from "../components/Speciality";
 function DishPage () {
     const icon = "https://ras-demo-bucket.s3.amazonaws.com/dishes/1.jpg"
     const dynamicBgStyle = {
@@ -11,7 +12,7 @@ function DishPage () {
             <div className="grid h-full">
                 <Header/>
                 <main className="overflow-auto w-full flex flex-col items-center px-8">
-                    <div className="flex flex-col items-end xl:w-[1280px] md:w-[740px]">
+                    <div className="xl:w-[1280px] md:w-[740px]">
                         <div className="flex w-full">
                             <div
                                 className="min-w-[478px] h-[313px] overflow-hidden rounded-xl mb-5 bg-cover bg-center mr-8"
@@ -26,18 +27,25 @@ function DishPage () {
                                     <p className="mr-20">1200 грн</p>
                                     <p>400 г</p>
                                 </div>
+                                <div className="flex flex-row items-start item-break">
+                                    <Speciality name="Гостре" color="#FFC301" img="https://ras-demo-bucket.s3.amazonaws.com/dishes/1.jpg"></Speciality>
+                                    <Speciality name="Веганське" color="#0FD12E" img="https://ras-demo-bucket.s3.amazonaws.com/dishes/1.jpg"></Speciality>
+                                </div>
+                                <div className="flex flex-col items-end">
+                                    <Button
+                                        style={{
+                                            backgroundColor:"#FFF200",
+                                            fontSize:"26px",
+                                            borderRadius:"15px",
+                                            width:"198px",
+                                            height:"49px",
+                                        }}
+                                        className="flex justify-center mt-15"
+                                    >На головну</Button>
+                                </div>
                             </div>
                         </div>
-                        <Button
-                            style={{
-                                backgroundColor:"#FFF200",
-                                fontSize:"26px",
-                                borderRadius:"15px",
-                                width:"198px",
-                                height:"49px",
-                            }}
-                            className="flex justify-center mt-15"
-                        >На головну</Button>
+
                     </div>
                 </main>
             </div>
