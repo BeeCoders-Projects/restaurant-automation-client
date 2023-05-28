@@ -32,10 +32,10 @@ export const dishSlice = createSlice({
     extraReducers: {
         // Получение списка блюд
         [getDish.pending]: (state) => {
-            state.loading = true
+            state.isLoading = true
         },
         [getDish.fulfilled]: (state, action) => {
-            state.loading = false
+            state.isLoading = false
             state.name = action.payload.name
             state.description = action.payload.description
             state.price = action.payload.price
@@ -46,7 +46,7 @@ export const dishSlice = createSlice({
             state.specifics = action.payload.specifics
         },
         [getDish.rejected]: (state) => {
-            state.loading = false
+            state.isLoading = false
         },
     }});
 

@@ -2,7 +2,7 @@ import Header from "../components/Header";
 import Button from "../components/Button"
 import React, {useEffect} from "react";
 import Speciality from "../components/Speciality";
-import {useNavigate, useParams} from "react-router-dom";
+import {Link, useNavigate, useParams} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {getDish} from "../redux/features/dishes/dishSlice";
 
@@ -10,7 +10,7 @@ function DishPage () {
     const { dishId } = useParams();
 
     const dispatch = useDispatch();
-    const dish = useSelector((state) => state.dish)
+    const dish = useSelector((state) => state.dish);
 
     const navigate = useNavigate();
 
@@ -44,11 +44,14 @@ function DishPage () {
                 <Header/>
                 <main className="overflow-auto w-full flex flex-col items-center px-8">
                     <div className="xl:w-[1280px] md:w-[740px]">
-                        <div className="flex w-full h-fit">
+                        {dish.isLoading?
+                            <h1 className="text-5xl text-center">Page Loading...</h1>
+                            :
+                            <div className="flex w-full h-fit">
                             <div
                                 className="min-w-[378px] xl:min-w-[478px] grow overflow-hidden rounded-xl bg-cover bg-center mr-8"
                                 style={dynamicBgStyle}
-                            >d
+                            >
                             </div>
                             <div>
                                 <p className="text-4xl">{dish.name}</p>
@@ -62,19 +65,22 @@ function DishPage () {
                                     {specialityList}
                                 </div>
                                 <div className="flex flex-col items-end">
-                                    <Button
-                                        style={{
-                                            backgroundColor:"#FFF200",
-                                            fontSize:"26px",
-                                            borderRadius:"15px",
-                                            width:"198px",
-                                            height:"49px",
-                                        }}
-                                        className="flex justify-center mt-15"
-                                    >На головну</Button>
+                                    <Link to="/">
+                                        <Button
+                                            style={{
+                                                backgroundColor:"#FFF200",
+                                                fontSize:"26px",
+                                                borderRadius:"15px",
+                                                width:"198px",
+                                                height:"49px",
+                                            }}
+                                            className="flex justify-center mt-15"
+                                        >На головну</Button>
+                                    </Link>
                                 </div>
                             </div>
                         </div>
+                        }
 
                     </div>
                 </main>
