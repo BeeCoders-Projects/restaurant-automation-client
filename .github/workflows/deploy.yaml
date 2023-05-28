@@ -14,7 +14,9 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Retrieve IP
-        run: IP_ADDRESS=$(curl -s https://api.ipify.org)
+        run: |
+          IP_ADDRESS=$(curl -s https://api.ipify.org)
+          echo "IP_ADDRESS=${IP_ADDRESS}" >> $GITHUB_ENV
 
       - name: Build Docker Image
         run: sudo docker build --build-arg REACT_APP_API_IP=$IP_ADDRESS --build-arg REACT_APP_API_PORT=8081 -t ras-front-image .
