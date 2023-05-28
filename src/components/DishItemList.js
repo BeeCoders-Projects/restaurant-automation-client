@@ -5,9 +5,7 @@ import {useEffect} from "react";
 
 function DishItemList(){
     const dispatch = useDispatch();
-    const {dishes} = useSelector((state) => state.dish)
-
-    console.log(dishes)
+    const {dishes} = useSelector((state) => state.dishMenu)
 
     useEffect(() => {
         dispatch(getMenuDishes())

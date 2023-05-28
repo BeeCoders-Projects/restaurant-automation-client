@@ -11,7 +11,7 @@ function App() {
                 <Route path="/" element={<Navbar/>}/>
                 <Route path="/auth" element={<AuthLayout/>}/>
                 <Route path="/mainMenu" element={<MenuLayout/>}/>
-                <Route path="/dish/:id" element={<DishPage/>}/>
+                <Route path="/dish/:dishId" element={<DishPage/>}/>
             </Routes>
         </div>
     );

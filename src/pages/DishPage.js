@@ -1,11 +1,36 @@
 import Header from "../components/Header";
 import Button from "../components/Button"
-import React from "react";
+import React, {useEffect} from "react";
 import Speciality from "../components/Speciality";
+import {useNavigate, useParams} from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux";
+import {getDish} from "../redux/features/dishes/dishSlice";
+
 function DishPage () {
-    const icon = "https://ras-demo-bucket.s3.amazonaws.com/dishes/1.jpg"
+    const { dishId } = useParams();
+
+    const dispatch = useDispatch();
+    const dish = useSelector((state) => state.dish)
+
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (!/\d+/.test(dishId)) {
+            navigate(-1);
+        }
+    }, [dishId, navigate]);
+
+    useEffect(() => {
+        if (dishId){
+            dispatch(getDish({dishId}))
+        }
+    }, [dishId, dispatch])
+
+
+    const specialityList = dish.specifics?.map((spec, idx) => (<Speciality key={idx} name={spec}/>))
+    const ingredientString = dish.ingredients?.map(ingr => (ingr.name)).join(', ')
     const dynamicBgStyle = {
-        backgroundImage: `url(${icon || null})`,
+        backgroundImage: `url(${dish.icon || null})`,
     };
     return (
         <>
@@ -20,16 +45,15 @@ function DishPage () {
                             >d
                             </div>
                             <div>
-                                <p className="text-4xl">Сет каліфорнія</p>
-                                <p className="text-xl pt-4">Копчений лосось з додаванням вугрю та крем-сиру. Подаємо на молочній булочці з ікрою тобіко та прикрашаємо нитками чилі.</p>
-                                <p className="text-xl pt-4">Копчений лосось, вугрь, крем-сир, молочна булочка, ікра тобіко, нитки чилі</p>
+                                <p className="text-4xl">{dish.name}</p>
+                                <p className="text-xl pt-4">{dish.description}</p>
+                                <p className="text-xl pt-4">{ingredientString}</p>
                                 <div className="ml-auto w-fit text-2xl pt-5 flex">
-                                    <p className="mr-20">1200 грн</p>
-                                    <p>400 г</p>
+                                    <p className="mr-20">{dish.price} грн</p>
+                                    <p>{dish.weight} г</p>
                                 </div>
-                                <div className="flex flex-row items-start item-break">
-                                    <Speciality name="Гостре" color="#FFC301" img="https://ras-demo-bucket.s3.amazonaws.com/dishes/1.jpg"></Speciality>
-                                    <Speciality name="Веганське" color="#0FD12E" img="https://ras-demo-bucket.s3.amazonaws.com/dishes/1.jpg"></Speciality>
+                                <div className="flex flex-row flex-wrap items-start item-break py-4">
+                                    {specialityList}
                                 </div>
                                 <div className="flex flex-col items-end">
                                     <Button
