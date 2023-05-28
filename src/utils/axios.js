@@ -6,6 +6,8 @@ const instance = axios.create({
     baseURL: `http://${API_IP}:${API_PORT}/api/v1`
 })
 
+console.log(API_IP, API_PORT)
+
 instance.interceptors.request.use((config) => {
     if (window.localStorage.getItem('token')){
         config.headers.Authorization = `Bearer ${window.localStorage.getItem('token')}`
