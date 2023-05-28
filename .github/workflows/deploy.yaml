@@ -19,7 +19,7 @@ jobs:
           echo "IP_ADDRESS=${IP_ADDRESS}" >> $GITHUB_ENV
 
       - name: Build Docker Image
-        run: sudo docker build --build-arg REACT_APP_API_IP=16.16.255.11 --build-arg REACT_APP_API_PORT=8081 -t ras-front-image .
+        run: sudo docker build --build-arg REACT_APP_API_IP=$IP_ADDRESS --build-arg REACT_APP_API_PORT=8081 -t ras-front-image .
 
       - name: Stop Docker Containers
         run: sudo docker stop ras-front || true
@@ -28,4 +28,4 @@ jobs:
         run: sudo docker rm ras-front || true
 
       - name: Run Docker Container
-        run: sudo docker run --rm -e REACT_APP_API_IP=16.16.255.11 -e REACT_APP_API_PORT=8081  -d -p 3000:3000 --name ras-front ras-front-image
+        run: sudo docker run --rm -e REACT_APP_API_IP=$IP_ADDRESS -e REACT_APP_API_PORT=8081  -d -p 3000:3000 --name ras-front ras-front-image
