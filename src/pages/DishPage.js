@@ -1,0 +1,56 @@
+import Header from "../components/Header";
+import Button from "../components/Button"
+import React from "react";
+import Speciality from "../components/Speciality";
+function DishPage () {
+    const icon = "https://ras-demo-bucket.s3.amazonaws.com/dishes/1.jpg"
+    const dynamicBgStyle = {
+        backgroundImage: `url(${icon || null})`,
+    };
+    return (
+        <>
+            <div className="grid h-full">
+                <Header/>
+                <main className="overflow-auto w-full flex flex-col items-center px-8">
+                    <div className="xl:w-[1280px] md:w-[740px]">
+                        <div className="flex w-full h-fit">
+                            <div
+                                className="min-w-[378px] xl:min-w-[478px] grow overflow-hidden rounded-xl bg-cover bg-center mr-8"
+                                style={dynamicBgStyle}
+                            >d
+                            </div>
+                            <div>
+                                <p className="text-4xl">Сет каліфорнія</p>
+                                <p className="text-xl pt-4">Копчений лосось з додаванням вугрю та крем-сиру. Подаємо на молочній булочці з ікрою тобіко та прикрашаємо нитками чилі.</p>
+                                <p className="text-xl pt-4">Копчений лосось, вугрь, крем-сир, молочна булочка, ікра тобіко, нитки чилі</p>
+                                <div className="ml-auto w-fit text-2xl pt-5 flex">
+                                    <p className="mr-20">1200 грн</p>
+                                    <p>400 г</p>
+                                </div>
+                                <div className="flex flex-row items-start item-break">
+                                    <Speciality name="Гостре" color="#FFC301" img="https://ras-demo-bucket.s3.amazonaws.com/dishes/1.jpg"></Speciality>
+                                    <Speciality name="Веганське" color="#0FD12E" img="https://ras-demo-bucket.s3.amazonaws.com/dishes/1.jpg"></Speciality>
+                                </div>
+                                <div className="flex flex-col items-end">
+                                    <Button
+                                        style={{
+                                            backgroundColor:"#FFF200",
+                                            fontSize:"26px",
+                                            borderRadius:"15px",
+                                            width:"198px",
+                                            height:"49px",
+                                        }}
+                                        className="flex justify-center mt-15"
+                                    >На головну</Button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </main>
+            </div>
+        </>
+    )
+}
+
+export default DishPage;
