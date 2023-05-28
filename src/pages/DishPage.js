@@ -13,11 +13,11 @@ function DishPage () {
                 <Header/>
                 <main className="overflow-auto w-full flex flex-col items-center px-8">
                     <div className="xl:w-[1280px] md:w-[740px]">
-                        <div className="flex w-full">
+                        <div className="flex w-full h-fit">
                             <div
-                                className="min-w-[478px] h-[313px] overflow-hidden rounded-xl mb-5 bg-cover bg-center mr-8"
+                                className="min-w-[378px] xl:min-w-[478px] grow overflow-hidden rounded-xl bg-cover bg-center mr-8"
                                 style={dynamicBgStyle}
-                            >
+                            >d
                             </div>
                             <div>
                                 <p className="text-4xl">Сет каліфорнія</p>
