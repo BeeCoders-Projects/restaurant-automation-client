@@ -17,7 +17,7 @@ COPY . .
 RUN npm run build
 
 #Install serve
-RUN sudo npm install -g serve
+RUN npm install -g serve
 
 # Set the command to start the app
 CMD ["npm", "run", "server"]
