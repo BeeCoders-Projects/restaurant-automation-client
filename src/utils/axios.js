@@ -1,8 +1,10 @@
 import axios from 'axios'
+const API_IP = process.env.REACT_APP_API_IP;
+const API_PORT = process.env.REACT_APP_API_PORT;
+
 
 const instance = axios.create({
-    // baseURL: `http://${process.env.IP}:8081/api/v1`
-    baseURL: `http://16.16.255.11:8081/api/v1`
+    baseURL: `http://${API_IP}:${API_PORT}/api/v1`
 })
 
 instance.interceptors.request.use((config) => {
