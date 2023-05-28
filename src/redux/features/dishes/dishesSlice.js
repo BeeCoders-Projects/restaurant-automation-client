@@ -3,11 +3,12 @@ import axios from '../../../utils/axios'
 
 const initialState = {
     dishes: null,
-    category: null
+    category: null,
+    isLoading: false,
 }
 
 export const getMenuDishes = createAsyncThunk(
-    '',
+    'dishMenu/get',
     async () => {
         try{
             const { data } = await axios.get(`/dishes`)
@@ -18,8 +19,8 @@ export const getMenuDishes = createAsyncThunk(
     }
 );
 
-export const dishSlice = createSlice({
-    name: 'dish',
+export const dishMenuSlice = createSlice({
+    name: 'dishMenu',
     initialState,
     reducers: {},
     extraReducers: {
@@ -36,4 +37,4 @@ export const dishSlice = createSlice({
         },
     }});
 
-export default dishSlice.reducer;
+export default dishMenuSlice.reducer;

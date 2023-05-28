@@ -3,7 +3,7 @@ import axios from '../../../utils/axios'
 import jwtDecode from "jwt-decode";
 
 const initialState = {
-    user: null,
+    name: null,
     token: null,
     isLoading: false,
     status: null,
@@ -33,6 +33,19 @@ export const loginUser = createAsyncThunk(
     },
 )
 
+export const getMe = createAsyncThunk(
+    'auth/loginUser',
+    async () =>{
+        try{
+            const token = window.localStorage.getItem('token')
+            const decodedToken = jwtDecode(token);
+            return {decodedToken, token}
+        } catch (error){
+            console.log(error)
+        }
+    }
+)
+
 export const authSlice = createSlice({
     name: 'auth',
     initialState,
@@ -52,7 +65,7 @@ export const authSlice = createSlice({
         },
         [loginUser.fulfilled]: (state, action) => {
             state.isLoading = false
-            state.user = action.payload?.decodedToken?.sub
+            state.name = action.payload.decodedToken?.name
             state.token = action.payload?.token
             state.status = action.payload?.message
         },
@@ -60,6 +73,18 @@ export const authSlice = createSlice({
             state.status = action.payload?.message
             state.isLoading = false
         },
+        // GET me
+        [getMe.pending]: (state) => {
+            state.isLoading = true
+        },
+        [getMe.fulfilled]: (state, action) => {
+            state.name = action.payload?.decodedToken?.name
+            state.token = action.payload?.token
+            state.isLoading = false
+        },
+        [getMe.rejected]: (state, action) => {
+            state.isLoading = false
+        }
     },
 })
 
