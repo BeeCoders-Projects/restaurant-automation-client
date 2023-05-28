@@ -14,7 +14,10 @@ RUN npm install
 COPY . .
 
 # Build the React app
-# RUN npm run build
+RUN npm run build
+
+#Install serve
+RUN sudo npm install -g serve
 
 # Set the command to start the app
-CMD ["npm", "run", "start"]
+CMD ["npm", "run", "server"]
