@@ -1,17 +1,20 @@
 import AuthLayout from "./components/AuthLayout";
-import {Route, Routes} from 'react-router-dom';
+import {Route, Routes, useNavigate} from 'react-router-dom';
 import MenuLayout from "./components/MenuLayout";
 import DishPage from "./pages/DishPage";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {useEffect} from "react";
-import {getMe} from "./redux/features/auth/authSlice";
+import {checkIsAuth, getMe} from "./redux/features/auth/authSlice";
 
 function App() {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const isAuth = useSelector(checkIsAuth);
 
     useEffect(() => {
         dispatch(getMe())
-    }, [dispatch])
+        if (!isAuth) navigate("/auth")
+    }, [isAuth, navigate, dispatch])
     return (
         <div className="w-full h-screen flex flex-col font-didactGothic">
             <Routes>

@@ -5,8 +5,7 @@ const API_PORT = process.env.REACT_APP_API_PORT;
 const instance = axios.create({
     baseURL: `http://${API_IP}:${API_PORT}/api/v1`
 })
-
-console.log(API_IP, API_PORT)
+// console.log(API_IP, API_PORT)
 
 instance.interceptors.request.use((config) => {
     if (window.localStorage.getItem('token')){
@@ -14,5 +13,21 @@ instance.interceptors.request.use((config) => {
     }
     return config
 })
+
+instance.interceptors.response.use(response => {
+    return response;
+}, error => {
+    // Handle response error
+    if (error.response && error.response.status === 401) {
+        if(window.localStorage.getItem("token")){
+            window.localStorage.removeItem('token')
+            window.location.href = '/auth';
+        }
+    }
+    if (error.response && error.response.status === 404) {
+        window.location.href = '/';
+    }
+    return Promise.reject(error);
+});
 
 export default instance

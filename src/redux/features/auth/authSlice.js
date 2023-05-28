@@ -4,7 +4,7 @@ import jwtDecode from "jwt-decode";
 
 const initialState = {
     name: null,
-    token: null,
+    token: "token",
     isLoading: false,
     status: null,
 }
@@ -42,6 +42,7 @@ export const getMe = createAsyncThunk(
             return {decodedToken, token}
         } catch (error){
             console.log(error)
+            window.localStorage.removeItem('token')
         }
     }
 )
