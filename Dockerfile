@@ -1,8 +1,11 @@
 # Base image
 FROM node:14-alpine
 
-ENV REACT_APP_API_IP=16.16.255.11 \
-    REACT_APP_API_PORT=8081
+# Set up enviroments
+ARG REACT_APP_API_IP
+ARG REACT_APP_API_PORT
+ENV REACT_APP_API_IP=${REACT_APP_API_IP} \
+    REACT_APP_API_PORT=${REACT_APP_API_PORT}
 
 # Set the working directory in the container
 WORKDIR /app
@@ -17,7 +20,6 @@ RUN npm install
 COPY . .
 
 # Build the React app
-#CMD ["npm", "run", "build"]
 RUN npm run build
 
 #Install serve
