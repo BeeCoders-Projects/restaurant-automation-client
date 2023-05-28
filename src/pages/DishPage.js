@@ -28,7 +28,13 @@ function DishPage () {
 
 
     const specialityList = dish.specifics?.map((spec, idx) => (<Speciality key={idx} name={spec}/>))
-    const ingredientString = dish.ingredients?.map(ingr => (ingr.name)).join(', ')
+    const ingredientString = dish.ingredients?.map((ingr, index) => (
+        <React.Fragment key={index}>
+            {index > 0 && ', '}
+            {ingr.allergic? <span className="text-red-600">{ingr.name}</span>: ingr.name}
+        </React.Fragment>
+    ))
+
     const dynamicBgStyle = {
         backgroundImage: `url(${dish.icon || null})`,
     };
