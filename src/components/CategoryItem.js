@@ -7,14 +7,14 @@ export default function CategoryItem ({info}) {
     const {activeCategory} = useSelector((state) => state.dishMenu);
     const dispatch = useDispatch();
 
-    const isSelected = Boolean(activeCategory === info.id)
+    const isSelected = Boolean(activeCategory === info.name)
     const dynamicBgStyle = {
         backgroundImage: `url(${info.icon || null})`,
     };
 
     const handleClick = () => {
         if (!isSelected){
-            dispatch(changeCategory(info.id))
+            dispatch(changeCategory(info.name))
         }
     }
 

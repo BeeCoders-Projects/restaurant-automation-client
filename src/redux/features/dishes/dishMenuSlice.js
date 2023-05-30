@@ -2,22 +2,9 @@ import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import axios from '../../../utils/axios';
 import CategoryAll from "../../../img/icons/CategoryAll.svg";
 
-const initialCategories = [
-    {
-        id: "specials",
-        name: "Special",
-        icon: CategoryAll
-    },
-    {
-        id: null,
-        name: "Все",
-        icon: CategoryAll
-    },
-]
-
 const initialState = {
     dishes: null,
-    activeCategory: null,
+    activeCategory: "Все",
     categories: null,
     isLoading: false,
 }
@@ -26,7 +13,9 @@ export const getMenuDishes = createAsyncThunk(
     'dishMenu/get',
     async ({category}) => {
         try{
-            const { data } = await axios.get(`/dishes${category? `?categoryId=${category}`: ""}`)
+            const { data } = await axios.get(
+                `/dishes${category? `?category=${category === "Все"? "" : category}`: ""}`
+            )
             return data
         } catch (error){
             console.log(error);
@@ -40,7 +29,7 @@ export const getCategories = createAsyncThunk(
         try {
             let initial = initialCategories
             const {data} = await axios.get('/categories');
-            return initial.concat(data)
+            return {data: initial.concat(data.content), special: data.has_special_dishes}
         } catch (error){
             console.log(error);
         }
@@ -73,12 +62,28 @@ export const dishMenuSlice = createSlice({
         },
         [getCategories.fulfilled]: (state, action) => {
             state.loading = false
-            state.categories = action.payload
+            state.categories = action.payload.data
+            state.special = action.payload.special
         },
         [getCategories.rejected]: (state) => {
             state.loading = false
         },
     }});
+
+
+const initialCategories = [
+    {
+        id: null,
+        name: "Все",
+        icon: CategoryAll
+    },
+]
+
+export const specialCategory = {
+    id: "specials",
+    name: "Special",
+    icon: CategoryAll
+}
 
 export const { changeCategory } = dishMenuSlice.actions
 export default dishMenuSlice.reducer;

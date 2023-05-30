@@ -7,10 +7,10 @@ function DishItem ({dish}) {
     };
     return (
         <div className="flex flex-wrap">
-    <div className={`w-fit text-xl border ${dish.is_special? "border-yellow-400" : "border-zinc-200"} relative h-fit
+    <div className={`w-fit text-xl border ${dish.special? "border-yellow-400" : "border-zinc-200"} relative h-fit
         rounded-xl px-6 xl:px-12 py-12 pb-6 flex flex-col items-center overflow-hidden`}>
 
-        {dish.is_special? <div className="absolute py-1 px-5 text-yellow-500 top-0 left-0
+        {dish.special? <div className="absolute py-1 px-5 text-yellow-500 top-0 left-0
         bg-yellow-300 rounded-br-xl font-bold font-montserrat text-base">
             <label>SPECIAL</label>
         </div>: null}
