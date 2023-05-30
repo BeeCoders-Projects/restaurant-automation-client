@@ -4,7 +4,7 @@ import CategoryAll from "../../../img/icons/CategoryAll.svg";
 
 const initialState = {
     dishes: null,
-    activeCategory: "Все",
+    activeCategory: "Special",
     categories: null,
     isLoading: false,
 }
