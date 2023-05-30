@@ -4,6 +4,11 @@ import CategoryAll from "../../../img/icons/CategoryAll.svg";
 
 const initialCategories = [
     {
+        id: "specials",
+        name: "Special",
+        icon: CategoryAll
+    },
+    {
         id: null,
         name: "Все",
         icon: CategoryAll
