@@ -13,7 +13,7 @@ export default function CategoryItemList() {
 
     const categoryList = categories?.map((info, idx) => <CategoryItem key={idx} info={info}/>)
     return (
-        <div className="h-40 w-full flex overflow-x-scroll">
+        <div className="h-40 w-full flex overflow-x-auto">
             {special? <CategoryItem key={-1} info={specialCategory}/> : null}
             {categoryList}
         </div>
