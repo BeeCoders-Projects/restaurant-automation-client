@@ -5,6 +5,7 @@ module.exports = {
     extend: {
       fontFamily: {
         didactGothic: ['Didact Gothic', 'sans-serif'],
+        montserrat: ['Montserrat', 'sans-serif'],
       },
     },
   },
