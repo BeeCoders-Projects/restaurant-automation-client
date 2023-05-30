@@ -27,9 +27,9 @@ export default function CategoryItem ({info}) {
             <div className="bg-cover bg-center w-full h-full" style={dynamicBgStyle}></div>
         </div>:null}
         {isSpecial?
-        <div className="w-full bg-yellow-300 my-auto text-center rounded-lg
-            rounded-tl-2xl rounded-br-2xl h-8 leading-4">
-            <label className="font-montserrat uppercase text-yellow-500 text-base">{info.name}</label>
+        <div className={`w-full my-auto text-center rounded-lg
+            rounded-tl-2xl rounded-br-2xl h-8 leading-4 ${isSelected? "text-yellow-500": "text-white bg-yellow-400"}`}>
+            <label className="font-montserrat uppercase text-base">{info.name}</label>
         </div>
         : <label className="text-lg">{info.name}</label>}
 
