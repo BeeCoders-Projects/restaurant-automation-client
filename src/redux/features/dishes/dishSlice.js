@@ -43,7 +43,7 @@ export const dishSlice = createSlice({
             state.icon = action.payload.icon
             state.ingredients = action.payload.ingredients
             state.category = action.payload.category
-            state.specifics = action.payload.specifics
+            state.specifics = action.payload.specifics_en
         },
         [getDish.rejected]: (state) => {
             state.isLoading = false
