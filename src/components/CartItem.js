@@ -14,7 +14,7 @@ export function CartItem(){
             </div>
             <div className="grow flex flex-col">
                 <div className="flex items-center justify-between max-w-full">
-                    <label className="overflow-hidden max-w-[130px]">SushiHuushiAhahah</label>
+                    <label className="truncate max-w-[130px]">SushiHuushiAhahah</label>
                     <IoIosCloseCircleOutline size={25} className="min-w-[25px] hover:text-yellow-400 cursor-pointer"/>
                 </div>
                 <span className="text-gray-400">800 g</span>
