@@ -18,7 +18,7 @@ export function CartList() {
         <>
             {isLoading ? <h1 className="text-2xl my-auto text-center">Loading...</h1>:
                 <>
-                    <div className="flex flex-col overflow-y-scroll">
+                    <div className="flex flex-col overflow-y-auto overflow-x-hidden">
                         {itemList}
                     </div>
                     <div>
