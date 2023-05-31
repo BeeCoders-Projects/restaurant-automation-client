@@ -15,7 +15,7 @@ function DishItem ({dish}) {
             <label>SPECIAL</label>
         </div>: null}
         <Link to={`/dish/${dish.id}`}>
-            <AiOutlineInfoCircle className="absolute right-5 top-5" size={30}/>
+            <AiOutlineInfoCircle className="absolute right-5 top-5 hover:text-yellow-400" size={30}/>
         </Link>
         <div
             className="w-[300px] h-[125px] overflow-hidden rounded-xl mb-5 bg-cover bg-center"
