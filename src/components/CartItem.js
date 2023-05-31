@@ -1,8 +1,8 @@
 import {IoIosCloseCircleOutline} from "react-icons/io";
 
-export function CartItem(){
+export function CartItem({info}){
     const dynamicBgStyle = {
-        backgroundImage: `url(https://ras-demo-bucket.s3.amazonaws.com/dishes/2.jpg)`,
+        backgroundImage: `url(${info.icon || null})`,
     };
     return (
         <div className="w-full py-4 flex text-xl">

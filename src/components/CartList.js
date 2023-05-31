@@ -1,17 +1,14 @@
 import {CartItem} from "./CartItem";
+import {useSelector} from "react-redux";
 
 export function CartList() {
+    const {items} = useSelector((state) => state.cart)
+
+    const itemList = items?.map((item, idx) => <CartItem key={idx} info={item}/>)
     return (
         <>
             <div className="flex flex-col overflow-y-scroll">
-                <CartItem/>
-                <CartItem/>
-                <CartItem/>
-                <CartItem/>
-                <CartItem/>
-                <CartItem/>
-                <CartItem/>
-
+                {itemList}
             </div>
             <div>
                 <div className="border-t flex w-full justify-between text-xl py-5">
