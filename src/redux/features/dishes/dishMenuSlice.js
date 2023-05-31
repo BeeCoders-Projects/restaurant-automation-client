@@ -64,6 +64,7 @@ export const dishMenuSlice = createSlice({
             state.loading = false
             state.categories = action.payload.data
             state.special = action.payload.special
+            if (!state.special){state.activeCategory = "Все"}
         },
         [getCategories.rejected]: (state) => {
             state.loading = false
