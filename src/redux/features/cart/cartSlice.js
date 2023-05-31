@@ -1,4 +1,5 @@
-import {createSlice} from "@reduxjs/toolkit";
+import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
+import axios from "../../../utils/axios";
 
 const cartItems =
     localStorage.getItem("cartItems") !== null
@@ -6,8 +7,24 @@ const cartItems =
         : [];
 
 const initialState = {
-    items: cartItems
+    items: cartItems,
+    isLoading: false
 }
+
+export const updateCartItems = createAsyncThunk(
+    'cart/update',
+    async (_, { getState }) => {
+        const { items } = getState().cart;
+        return await Promise.all(items.map(async item => {
+            try {
+                const {data} = await axios.get(`/dishes/${item.id}`)
+                return {...item, ...data}
+            } catch (error) {
+                console.log(error)
+            }
+        }))
+    }
+);
 
 export const cartSlice = createSlice({
     name: 'cart',
@@ -28,6 +45,15 @@ export const cartSlice = createSlice({
         deleteItem: (state, action) => {
             state.items = state.items.filter(dish => dish.id !== action.payload);
             window.localStorage.setItem("cartItems", JSON.stringify(state.items))
+        },
+    },
+    extraReducers: {
+        [updateCartItems.pending]: (state) => {
+            state.isLoading = true
+        },
+        [updateCartItems.fulfilled]: (state, action) => {
+            state.isLoading = false
+            state.items = action.payload
         },
     }
 })
