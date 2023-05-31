@@ -10,6 +10,7 @@ const initialState = {
     ingredients: null,
     category: null,
     specifics: null,
+    special: false,
     isLoading: false,
     status: null,
 }
@@ -44,6 +45,7 @@ export const dishSlice = createSlice({
             state.ingredients = action.payload.ingredients
             state.category = action.payload.category
             state.specifics = action.payload.specifics_en
+            state.special = action.payload.special
         },
         [getDish.rejected]: (state) => {
             state.isLoading = false

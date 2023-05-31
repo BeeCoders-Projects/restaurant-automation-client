@@ -49,9 +49,14 @@ function DishPage () {
                             :
                             <div className="flex w-full h-fit">
                             <div
-                                className="min-w-[378px] xl:min-w-[478px] grow overflow-hidden rounded-xl bg-cover bg-center mr-8"
+                                className="min-w-[378px] xl:min-w-[478px] grow relative
+                                overflow-hidden rounded-xl bg-cover bg-center mr-8"
                                 style={dynamicBgStyle}
                             >
+                                {dish.special? <div className="absolute py-1 px-5 text-yellow-500 top-0 left-0
+                                        bg-yellow-300 rounded-br-xl font-bold font-montserrat text-base">
+                                    <label>SPECIAL</label>
+                                </div>: null}
                             </div>
                             <div>
                                 <p className="text-4xl">{dish.name}</p>
