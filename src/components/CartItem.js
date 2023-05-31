@@ -1,9 +1,16 @@
 import {IoIosCloseCircleOutline} from "react-icons/io";
+import {useDispatch} from "react-redux";
+import {deleteItem} from "../redux/features/cart/cartSlice";
 
-export function CartItem({info}){
+export function CartItem({dish}){
+    const dispatch = useDispatch();
     const dynamicBgStyle = {
-        backgroundImage: `url(${info.icon || null})`,
+        backgroundImage: `url(${dish.icon || null})`,
     };
+
+    const handleDelete = () => {
+        dispatch(deleteItem(dish.id));
+    }
     return (
         <div className="w-full py-4 flex text-xl">
             <div
@@ -14,13 +21,16 @@ export function CartItem({info}){
             </div>
             <div className="grow flex flex-col">
                 <div className="flex items-center justify-between max-w-full">
-                    <label className="truncate max-w-[130px]">SushiHuushiAhahah</label>
-                    <IoIosCloseCircleOutline size={25} className="min-w-[25px] hover:text-yellow-400 cursor-pointer"/>
+                    <label className="truncate max-w-[130px]">{dish.name}</label>
+                    <IoIosCloseCircleOutline
+                        onClick={() => handleDelete()}
+                        size={25}
+                        className="min-w-[25px] hover:text-yellow-400 cursor-pointer"/>
                 </div>
-                <span className="text-gray-400">800 g</span>
+                <span className="text-gray-400">{dish.weight} g</span>
                 <div className="flex justify-between mt-auto">
-                    <span>1 шт</span>
-                    <span className="ml-auto">460 ₴</span>
+                    <span>{dish.count} шт</span>
+                    <span className="ml-auto">{(dish.price * dish.count).toFixed(2)} ₴</span>
                 </div>
             </div>
         </div>

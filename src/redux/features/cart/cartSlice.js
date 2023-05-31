@@ -1,15 +1,12 @@
 import {createSlice} from "@reduxjs/toolkit";
-import {authSlice} from "../auth/authSlice";
+
+const cartItems =
+    localStorage.getItem("cartItems") !== null
+        ? JSON.parse(localStorage.getItem("cartItems"))
+        : [];
 
 const initialState = {
-    items: [{
-        id: 2,
-        icon: 'https://ras-demo-bucket.s3.amazonaws.com/dishes/2.jpg',
-        name: 'BBQ',
-        price: 75.5,
-        weight: 165,
-        special: true
-    }]
+    items: cartItems
 }
 
 export const cartSlice = createSlice({
@@ -17,10 +14,29 @@ export const cartSlice = createSlice({
     initialState,
     reducers: {
         addItem: (state, action) => {
-            state.items.push(action.payload)
-        }
+            let dish = Object.assign({}, action.payload);
+
+            const item = state.items.find(item => item.id === dish.id)
+            if(item) {
+                item.count += 1;
+            } else {
+                dish['count'] = 1;
+                state.items.push(dish)
+            }
+            window.localStorage.setItem("cartItems", JSON.stringify(state.items))
+        },
+        deleteItem: (state, action) => {
+            state.items = state.items.filter(dish => dish.id !== action.payload);
+            window.localStorage.setItem("cartItems", JSON.stringify(state.items))
+        },
     }
 })
 
 export const isCartFulfilled = (state) => Boolean(state.cart.items.length)
+export const totalCartCount = (state) => state.cart.items.reduce(
+    (acc, dish) => acc + dish.count, 0);
+export const totalCartPrice = (state) => state.cart.items.reduce(
+    (acc, dish) => acc + (dish.price * dish.count), 0).toFixed(2);
+
+export const {addItem, deleteItem} = cartSlice.actions
 export default cartSlice.reducer
