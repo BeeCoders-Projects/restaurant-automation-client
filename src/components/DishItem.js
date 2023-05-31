@@ -1,10 +1,18 @@
 import {AiOutlineInfoCircle} from "react-icons/ai";
 import {Link} from "react-router-dom";
+import Button from "./Button";
+import React from "react";
+import {useDispatch} from "react-redux";
+import {addItem} from "../redux/features/cart/cartSlice";
 
 function DishItem ({dish}) {
+    const dispatch = useDispatch();
     const dynamicBgStyle = {
         backgroundImage: `url(${dish.icon || null})`,
     };
+    const handleAddCart = () => {
+        dispatch(addItem(dish))
+    }
     return (
         <div className="flex flex-wrap">
     <div className={`w-fit text-xl border ${dish.special? "border-yellow-400" : "border-zinc-200"} relative h-fit
@@ -15,15 +23,15 @@ function DishItem ({dish}) {
             <label>SPECIAL</label>
         </div>: null}
         <Link to={`/dish/${dish.id}`}>
-            <AiOutlineInfoCircle className="absolute right-5 top-5" size={30}/>
+            <AiOutlineInfoCircle className="absolute right-5 top-5 hover:text-yellow-400" size={30}/>
         </Link>
         <div
             className="w-[300px] h-[125px] overflow-hidden rounded-xl mb-5 bg-cover bg-center"
             style={dynamicBgStyle}
         >
         </div>
-        <label>{dish.name}</label>
-        <div className="flex mt-10 justify-between w-48">
+        <label className="w-full truncate text-center">{dish.name}</label>
+        <div className="flex mt-10 w-full justify-between items-center">
             <div>
                 <p>Ціна</p>
                 <p>{dish.price} грн</p>
@@ -32,6 +40,11 @@ function DishItem ({dish}) {
                 <p>Вага</p>
                 <p>{dish.weight} г</p>
             </div>
+            <Button
+                onClick={() => handleAddCart()}
+                className="flex justify-center w-24 h-fit py-2
+                bg-yellow-300 rounded-xl text-sm hover:bg-yellow-200"
+            >До кошика</Button>
         </div>
     </div> </div>)
 }
