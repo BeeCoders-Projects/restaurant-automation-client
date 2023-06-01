@@ -1,19 +1,14 @@
 import {CartItem} from "./CartItem";
-import {useDispatch, useSelector} from "react-redux";
-import {totalCartCount, totalCartPrice, updateCartItems} from "../redux/features/cart/cartSlice";
-import {useEffect} from "react";
+import {useSelector} from "react-redux";
+import {totalCartCount, totalCartPrice} from "../redux/features/cart/cartSlice";
 
 export function CartList() {
     const {items, isLoading} = useSelector((state) => state.cart)
     const totalCount = useSelector(totalCartCount);
     const totalPrice = useSelector(totalCartPrice);
-    const dispatch = useDispatch();
 
     const itemList = items?.map((item, idx) => <CartItem key={idx} dish={item}/>)
 
-    useEffect(() => {
-        dispatch(updateCartItems())
-    }, [])
     return (
         <>
             {isLoading ? <h1 className="text-2xl my-auto text-center">Loading...</h1>:
