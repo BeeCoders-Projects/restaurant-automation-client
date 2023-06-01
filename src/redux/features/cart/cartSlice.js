@@ -21,7 +21,7 @@ export const updateCartItems = createAsyncThunk(
                 const { id, icon, name, weight, price } = data
                 return {...item, ...{ id, icon, name, weight, price }}
             } catch (error) {
-                console.log(error)
+                return rejectWithValue("Can't update cart");
             }
         }))
     }
@@ -65,6 +65,9 @@ export const cartSlice = createSlice({
         [updateCartItems.fulfilled]: (state, action) => {
             state.isLoading = false
             state.items = action.payload
+        },
+        [updateCartItems.rejected]: (state) => {
+            state.isLoading = false
         },
     }
 })

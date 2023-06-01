@@ -17,7 +17,6 @@ export const loginUser = createAsyncThunk(
                 username,
                 password,
             })
-            console.log(headers, data);
             if (headers['authorization']) {
                 const token = headers['authorization']
                 window.localStorage.setItem('token', token);
@@ -27,7 +26,6 @@ export const loginUser = createAsyncThunk(
             }
             return data
         } catch (error) {
-            console.log(error)
             return error.response.data
         }
     },
@@ -41,7 +39,6 @@ export const getMe = createAsyncThunk(
             const decodedToken = jwtDecode(token);
             return {decodedToken, token}
         } catch (error){
-            console.log(error)
             window.localStorage.removeItem('token')
         }
     }
@@ -83,7 +80,7 @@ export const authSlice = createSlice({
             state.token = action.payload?.token
             state.isLoading = false
         },
-        [getMe.rejected]: (state, action) => {
+        [getMe.rejected]: (state) => {
             state.isLoading = false
         }
     },
