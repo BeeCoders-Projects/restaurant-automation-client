@@ -13,7 +13,7 @@ const initialState = {
 
 export const updateCartItems = createAsyncThunk(
     'cart/update',
-    async () => {
+    async (_, {rejectWithValue}) => {
         // const { items } = getState().cart;
         return await Promise.all(cartItems.map(async item => {
             try {

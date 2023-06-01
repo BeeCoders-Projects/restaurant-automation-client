@@ -31,7 +31,7 @@ export function CartItem({dish}){
                         className="min-w-[25px] hover:text-yellow-400 cursor-pointer"/>
                 </div>
                 <span className="text-gray-400">{dish.weight} g</span>
-                <div className="flex justify-between mt-auto">
+                <div className="flex justify-between mt-auto unselectable">
                     <div className="border rounded">
                         <span className="inline-block w-5 h-full text-center
                                 cursor-pointer hover:bg-gray-200"
