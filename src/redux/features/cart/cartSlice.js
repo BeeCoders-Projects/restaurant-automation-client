@@ -13,14 +13,14 @@ const initialState = {
 
 export const updateCartItems = createAsyncThunk(
     'cart/update',
-    async (_, { getState }) => {
+    async (_, { getState, rejectWithValue}) => {
         const { items } = getState().cart;
         return await Promise.all(items.map(async item => {
             try {
                 const {data} = await axios.get(`/dishes/${item.id}`)
                 return {...item, ...data}
             } catch (error) {
-                console.log(error)
+                return rejectWithValue("Can't update cart");
             }
         }))
     }
@@ -54,6 +54,9 @@ export const cartSlice = createSlice({
         [updateCartItems.fulfilled]: (state, action) => {
             state.isLoading = false
             state.items = action.payload
+        },
+        [updateCartItems.rejected]: (state) => {
+            state.isLoading = false
         },
     }
 })
