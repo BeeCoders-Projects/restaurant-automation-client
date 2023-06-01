@@ -1,6 +1,6 @@
 import {IoIosCloseCircleOutline} from "react-icons/io";
 import {useDispatch} from "react-redux";
-import {deleteItem} from "../redux/features/cart/cartSlice";
+import {deleteItem, manageCartItem} from "../redux/features/cart/cartSlice";
 
 export function CartItem({dish}){
     const dispatch = useDispatch();
@@ -10,6 +10,9 @@ export function CartItem({dish}){
 
     const handleDelete = () => {
         dispatch(deleteItem(dish.id));
+    }
+    const handleManage = (operation) => {
+        dispatch(manageCartItem({id: dish.id, operation}))
     }
     return (
         <div className="w-full py-4 flex text-xl">
@@ -30,9 +33,15 @@ export function CartItem({dish}){
                 <span className="text-gray-400">{dish.weight} g</span>
                 <div className="flex justify-between mt-auto">
                     <div className="border rounded">
-                        <span className="inline-block w-5 h-full text-center cursor-pointer hover:bg-gray-200">-</span>
-                        <span className=" px-2">{dish.count}</span>
-                        <span className="inline-block w-5 h-full text-center  cursor-pointer hover:bg-gray-200">+</span>
+                        <span className="inline-block w-5 h-full text-center
+                                cursor-pointer hover:bg-gray-200"
+                              onClick={() => handleManage("decrease")}
+                        >-</span>
+                        <span className="px-2 text-base">{dish.count}</span>
+                        <span className="inline-block w-5 h-full text-center
+                                    cursor-pointer hover:bg-gray-200"
+                              onClick={() => handleManage("increase")}
+                        >+</span>
                     </div>
                     <span className="ml-auto">{(dish.price * dish.count).toFixed(2)} ₴</span>
                 </div>
