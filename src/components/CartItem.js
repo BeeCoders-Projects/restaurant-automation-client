@@ -29,7 +29,11 @@ export function CartItem({dish}){
                 </div>
                 <span className="text-gray-400">{dish.weight} g</span>
                 <div className="flex justify-between mt-auto">
-                    <span>{dish.count} шт</span>
+                    <div className="border rounded">
+                        <span className="inline-block w-5 h-full text-center cursor-pointer hover:bg-gray-200">-</span>
+                        <span className=" px-2">{dish.count}</span>
+                        <span className="inline-block w-5 h-full text-center  cursor-pointer hover:bg-gray-200">+</span>
+                    </div>
                     <span className="ml-auto">{(dish.price * dish.count).toFixed(2)} ₴</span>
                 </div>
             </div>
