@@ -1,8 +1,11 @@
 import {IoIosCloseCircleOutline} from "react-icons/io";
 import {useDispatch} from "react-redux";
 import {deleteItem, manageCartItem} from "../redux/features/cart/cartSlice";
+import {useEffect, useState} from "react";
 
 export function CartItem({dish}){
+    const [highlight, setHighlight] = useState(false);
+
     const dispatch = useDispatch();
     const dynamicBgStyle = {
         backgroundImage: `url(${dish.icon || null})`,
@@ -12,8 +15,26 @@ export function CartItem({dish}){
         dispatch(deleteItem(dish.id));
     }
     const handleManage = (operation) => {
-        dispatch(manageCartItem({id: dish.id, operation}))
+        const num = operation === "increase" ? 1 : -1;
+        const res = dish.count + num
+
+        if (res >= 1 && res <= 100) {
+            dispatch(manageCartItem({id: dish.id, operation}))
+        } else {
+            setHighlight(true)
+        }
     }
+
+    useEffect(() => {
+        let timeout;
+        if (highlight) {
+            timeout = setTimeout(() => {
+                setHighlight(false);
+            }, 500);
+        }
+
+        return () => clearTimeout(timeout);
+    }, [highlight]);
     return (
         <div className="w-full py-4 flex text-xl">
             <div
@@ -32,7 +53,7 @@ export function CartItem({dish}){
                 </div>
                 <span className="text-gray-400">{dish.weight} g</span>
                 <div className="flex justify-between mt-auto unselectable">
-                    <div className="border rounded">
+                    <div className={`border-2 rounded transition overflow-hidden ${highlight ? 'border-red-400' : ''}`}>
                         <span className="inline-block w-5 h-full text-center
                                 cursor-pointer hover:bg-gray-200"
                               onClick={() => handleManage("decrease")}
