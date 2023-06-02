@@ -35,14 +35,15 @@ export const cartSlice = createSlice({
             let dish = Object.assign({}, action.payload);
 
             const item = state.items.find(item => item.id === dish.id)
-            if(item) {
+            if(item && item.count < 100) {
                 item.count += 1;
-            } else {
+                exportToLocal(state.items);
+            } else if (!item){
                 dish['count'] = 1;
                 const { id, count, icon, name, weight, price } = dish;
                 state.items.push({ id, count, icon, name, weight, price })
+                exportToLocal(state.items);
             }
-            exportToLocal(state.items);
         },
         deleteItem: (state, action) => {
             state.items = state.items.filter(dish => dish.id !== action.payload);
@@ -50,9 +51,9 @@ export const cartSlice = createSlice({
         },
         manageCartItem: (state, action) => {
             const item = state.items.find(item => item.id === action.payload.id)
-            if (action.payload.operation === "increase" && item.count >= 1 && item.count < 100){
+            if (action.payload.operation === "increase" && item.count < 100){
                 item.count += 1
-            } else if (action.payload.operation === "decrease" && item.count > 1 && item.count <= 100){
+            } else if (action.payload.operation === "decrease" && item.count > 1){
                 item.count -= 1
             }
             exportToLocal(state.items);
