@@ -1,11 +1,6 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import axios from "../../../utils/axios";
 
-const cartItems =
-    localStorage.getItem("cartItems") !== null
-        ? JSON.parse(localStorage.getItem("cartItems"))
-        : [];
-
 const initialState = {
     items: [],
     isLoading: false
@@ -14,7 +9,10 @@ const initialState = {
 export const updateCartItems = createAsyncThunk(
     'cart/update',
     async (_, {rejectWithValue}) => {
-        // const { items } = getState().cart;
+        const cartItems =
+            localStorage.getItem("cartItems") !== null
+                ? JSON.parse(localStorage.getItem("cartItems"))
+                : [];
         return await Promise.all(cartItems.map(async item => {
             try {
                 const {data} = await axios.get(`/dishes/${item.id}`)
