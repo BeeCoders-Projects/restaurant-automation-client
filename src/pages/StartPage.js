@@ -2,7 +2,7 @@ import { ReactComponent as Logo } from "../img/Logo.svg";
 import Button from "../components/Button";
 import Marquee from "react-double-marquee/dist/bundle.esm";
 
-export default function StartPage() {
+export default function StartPage({handle}) {
     return (<>
         <header className="h-32 bg-[#2D2929] flex justify-center items-center relative">
             <Logo className="absolute max-w-24 left-4"/>
@@ -39,7 +39,7 @@ export default function StartPage() {
                 <div className="flex justify-center mb-12">
                     <div className="flex flex-col">
                         <Button className="bg-yellow-300/10 rounded-md
-                        text-2xl border border-black py-5 px-24 hover:bg-yellow-300 duration-300 conic">Почати замовлення</Button>
+                        text-2xl border border-black py-5 px-24 hover:bg-yellow-300 duration-300 conic" onClick={() => handle()}>Почати замовлення</Button>
                         <span className="animate-pulse text-center mt-5 uppercase font-montserrat text-[10px] tracking-widest">Натисніть кнопку, щоб розпочати роботу</span>
                     </div>
                 </div>
