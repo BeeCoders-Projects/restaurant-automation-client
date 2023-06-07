@@ -8,6 +8,9 @@ module.exports = {
         montserrat: ['Montserrat', 'sans-serif'],
       },
     },
+    letterSpacing: {
+      big: '1em',
+    }
   },
   plugins: [
     require('tailwind-scrollbar'),
