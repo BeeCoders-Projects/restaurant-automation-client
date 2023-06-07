@@ -20,3 +20,11 @@ input:focus {
     -webkit-user-select: none;
     user-select: none;
 }
+
+.marquee {
+    @apply w-full whitespace-nowrap py-5;
+}
+
+.marquee div {
+    overflow-y: hidden;
+}

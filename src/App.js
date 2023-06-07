@@ -5,6 +5,7 @@ import DishPage from "./pages/DishPage";
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect} from "react";
 import {checkIsAuth, getMe} from "./redux/features/auth/authSlice";
+import StartPage from "./pages/StartPage";
 
 function App() {
     const dispatch = useDispatch();
@@ -14,11 +15,13 @@ function App() {
     useEffect(() => {
         dispatch(getMe())
         if (!isAuth) navigate("/auth")
-    }, [isAuth, navigate, dispatch])
+    }, [isAuth, navigate, dispatch]);
+
+    const mainElement = true? <StartPage/>: <MenuLayout/>;
     return (
         <div className="w-full h-screen flex flex-col font-didactGothic">
             <Routes>
-                <Route path="/" element={<MenuLayout/>}/>
+                <Route path="/" element={mainElement}/>
                 <Route path="/auth" element={<AuthLayout/>}/>
                 <Route path="/dish/:dishId" element={<DishPage/>}/>
             </Routes>
