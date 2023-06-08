@@ -42,8 +42,8 @@ function DishItem ({dish}) {
             </div>
             <Button
                 onClick={() => handleAddCart()}
-                className="flex justify-center w-24 h-fit py-2 min-w-fit mx-2
-                bg-yellow-300 rounded-xl text-sm hover:bg-yellow-200"
+                rounded_sm yellow content_sm
+                className="w-24 h-fit min-w-fit mx-2"
             >До кошика</Button>
         </div>
     </div> </div>)

@@ -1,6 +1,7 @@
 import {CartItem} from "./CartItem";
 import {useSelector} from "react-redux";
 import {totalCartCount, totalCartPrice} from "../redux/features/cart/cartSlice";
+import Button from "./Button";
 
 export function CartList() {
     const {items, isLoading} = useSelector((state) => state.cart)
@@ -8,6 +9,10 @@ export function CartList() {
     const totalPrice = useSelector(totalCartPrice);
 
     const itemList = items?.map((item, idx) => <CartItem key={idx} dish={item}/>)
+
+    const handleOrder = () => {
+        console.log("Order!")
+    }
 
     return (
         <>
@@ -26,6 +31,10 @@ export function CartList() {
                             <label>Загальна сума</label>
                             <span>{totalPrice} ₴</span>
                         </div>
+                        <Button primary yellow rounded_sm content_xl
+                                className="w-44 mx-auto mt-12 mb-8"
+                                onClick={() => handleOrder()}
+                        >Order</Button>
                     </div>
                 </>
             }

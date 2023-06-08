@@ -10,15 +10,24 @@ function Button({
                     danger,
                     outline,
                     rounded,
+                    rounded_sm,
                     loading,
+                    yellow,
+                    content_sm,
+                    content_xl,
                     ...rest
                 }){
     const classes = className(rest.className,
-        'flex items-center py-1.5',
+        'flex items-center justify-center py-1.5',
         {
             'opacity-80': loading,
             'bg-yellow-300': primary,
             'rounded-full': rounded,
+            'rounded-xl': rounded_sm,
+            'hover:bg-yellow-200 bg-yellow-300': yellow,
+
+            'p-2 text-sm': content_sm,
+            'p-6 text-2xl': content_xl,
         }
         )
 
