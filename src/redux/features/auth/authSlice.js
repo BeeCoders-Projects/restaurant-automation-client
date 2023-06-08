@@ -4,6 +4,7 @@ import jwtDecode from "jwt-decode";
 
 const initialState = {
     name: null,
+    sub: null,
     token: "token",
     isLoading: false,
     status: null,
@@ -44,12 +45,27 @@ export const getMe = createAsyncThunk(
     }
 )
 
+export const changeTableStatus = createAsyncThunk(
+    'auth/changeStatus',
+    async ({table_name, status}) => {
+        try{
+            await axios.patch('/tables/status', {
+                table_name,
+                status
+            })
+        } catch (error) {
+            console.log(error)
+        }
+    }
+)
+
 export const authSlice = createSlice({
     name: 'auth',
     initialState,
     reducers: {
         logout: (state) => {
             state.user = null
+            state.sub = null
             state.token = null
             state.isLoading = false
             state.status = null
@@ -64,6 +80,7 @@ export const authSlice = createSlice({
         [loginUser.fulfilled]: (state, action) => {
             state.isLoading = false
             state.name = action.payload.decodedToken?.name
+            state.sub = action.payload.decodedToken?.sub
             state.token = action.payload?.token
             state.status = action.payload?.message
         },
@@ -77,6 +94,7 @@ export const authSlice = createSlice({
         },
         [getMe.fulfilled]: (state, action) => {
             state.name = action.payload?.decodedToken?.name
+            state.sub = action.payload?.decodedToken?.sub
             state.token = action.payload?.token
             state.isLoading = false
         },

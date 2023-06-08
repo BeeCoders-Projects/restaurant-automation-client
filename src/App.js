@@ -4,11 +4,12 @@ import MenuLayout from "./components/MenuLayout";
 import DishPage from "./pages/DishPage";
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect, useState} from "react";
-import {checkIsAuth, getMe} from "./redux/features/auth/authSlice";
+import {changeTableStatus, checkIsAuth, getMe} from "./redux/features/auth/authSlice";
 import StartPage from "./pages/StartPage";
 
 function App() {
     const [showMenu, setShowMenu] = useState(false);
+    const {name} = useSelector((state) => state.auth);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const isAuth = useSelector(checkIsAuth);
@@ -19,7 +20,8 @@ function App() {
     }, [isAuth, navigate, dispatch]);
 
     const handleClick = () => {
-        setShowMenu(!showMenu)
+        setShowMenu(!showMenu);
+        dispatch(changeTableStatus({table_name: name, status: "Occupied"}))
     }
     const mainElement = showMenu? <MenuLayout/>: <StartPage handle={handleClick}/>;
     return (
