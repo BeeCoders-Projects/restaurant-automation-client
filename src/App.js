@@ -6,6 +6,9 @@ import {useDispatch, useSelector} from "react-redux";
 import {useEffect, useState} from "react";
 import {changeTableStatus, checkIsAuth, getMe} from "./redux/features/auth/authSlice";
 import StartPage from "./pages/StartPage";
+import OrderPage from "./pages/OrderPage";
+import MainMenuPage from "./pages/MainMenuPage";
+import OrderLayout from "./components/OrderLayout";
 
 function App() {
     const [showMenu, setShowMenu] = useState(false);
@@ -23,12 +26,15 @@ function App() {
         setShowMenu(!showMenu);
         dispatch(changeTableStatus({table_name: name, status: "Occupied"}))
     }
-    const mainElement = showMenu? <MenuLayout/>: <StartPage handle={handleClick}/>;
+    const mainElement = showMenu?
+        <MenuLayout cart={true}><MainMenuPage/></MenuLayout>:
+        <StartPage handle={handleClick}/>;
     return (
         <div className="w-full h-screen flex flex-col font-didactGothic">
             <Routes>
                 <Route path="/" element={mainElement}/>
                 <Route path="/auth" element={<AuthLayout/>}/>
+                <Route path="/order" element={<OrderLayout/>}/>
                 <Route path="/dish/:dishId" element={<DishPage/>}/>
             </Routes>
         </div>
