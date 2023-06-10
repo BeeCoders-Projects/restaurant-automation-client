@@ -16,8 +16,9 @@ export default function OrderList() {
     return (
         <>
             {isLoading ? <h1 className="text-2xl my-auto text-center">Loading...</h1>:
-                <>
-                    <div className="flex flex-col overflow-y-auto overflow-x-hidden
+                <div>
+                    <h2 className="py-4">Ordered dishes</h2>
+                    <div className="flex flex-col overflow-y-auto overflow-x-hidden max-h-[450px]
                     scrollbar-thumb-amber-200 scrollbar-thin scrollbar-track-gray-200">
                         {orderList}
                     </div>
@@ -31,7 +32,7 @@ export default function OrderList() {
                             <span>{totalPrice} ₴</span>
                         </div>
                     </div>
-                </>}
+                </div>}
         </>
     )
 }

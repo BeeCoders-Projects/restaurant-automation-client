@@ -8,7 +8,6 @@ import {changeTableStatus, checkIsAuth, getMe} from "./redux/features/auth/authS
 import StartPage from "./pages/StartPage";
 import OrderPage from "./pages/OrderPage";
 import MainMenuPage from "./pages/MainMenuPage";
-import OrderLayout from "./components/OrderLayout";
 
 function App() {
     const [showMenu, setShowMenu] = useState(false);
@@ -34,7 +33,7 @@ function App() {
             <Routes>
                 <Route path="/" element={mainElement}/>
                 <Route path="/auth" element={<AuthLayout/>}/>
-                <Route path="/order" element={<OrderLayout/>}/>
+                <Route path="/order" element={<MenuLayout><OrderPage/></MenuLayout>}/>
                 <Route path="/dish/:dishId" element={<DishPage/>}/>
             </Routes>
         </div>
