@@ -1,7 +1,16 @@
+import { ReactComponent as Logo } from "../img/Logo.svg";
+import { ReactComponent as HomeMenu } from "../img/icons/homeMenu.svg";
+import { ReactComponent as OrderMenu } from "../img/icons/orderMenu.svg";
+
 export default function SideBar() {
     return (
-        <div className="w-[370px] h-full max-h-screen bg-gray-100 drop-shadow-2xl px-3 flex flex-col">
-            d
+        <div className="w-28
+        h-full max-h-screen bg-[#2D2929] px-4 py-7 flex flex-col text-white">
+            <Logo className="max-w-full"/>
+            <div className="mt-16">
+                <HomeMenu className="mx-auto hover:opacity-70 cursor-pointer"/>
+                <OrderMenu className="mx-auto mt-10 hover:opacity-70 cursor-pointer"/>
+            </div>
         </div>
     )
 }
