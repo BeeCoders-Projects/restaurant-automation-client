@@ -4,10 +4,12 @@ import axios from "../../../utils/axios";
 
 const initialState = {
     isLoading: false,
-    orderId: null,
+    orderId: localStorage.getItem("orderId") !== null
+        ? JSON.parse(localStorage.getItem("orderId"))
+        : null,
     message: null,
-    orderItems: null,
-    totalPrice: 2000
+    dishes: null,
+    totalPrice: 0
 }
 
 export const createOrder = createAsyncThunk (
@@ -15,45 +17,54 @@ export const createOrder = createAsyncThunk (
     async (_,
            {rejectWithValue, getState, dispatch}
     ) => {
-        try {
-            const state = getState();
-            const order_id = state.order.orderId
+        const dishes =
+            localStorage.getItem("cartItems") !== null
+                ? JSON.parse(localStorage.getItem("cartItems"))
+                : [];
+        if (dishes) {
+            try {
+                const state = getState();
+                const order_id = state.order.orderId
 
-            const dishes =
-                localStorage.getItem("cartItems") !== null
-                    ? JSON.parse(localStorage.getItem("cartItems"))
-                    : [];
-            for (let i = 0; i < dishes.length; i++) {
-                dishes[i].dish_id = dishes[i].id;
-                delete dishes[i].id;
+                for (let i = 0; i < dishes.length; i++) {
+                    dishes[i].dish_id = dishes[i].id;
+                    delete dishes[i].id;
+                }
+
+                const {data} = await axios.post('/orders/create', {dishes, order_id});
+
+                if (data){
+                    dispatch(clearCart())
+                    window.localStorage.setItem("orderId", JSON.stringify(data))
+                    window.location.href = '/order';
+                    return data
+                }
+            } catch (error) {
+                return rejectWithValue("Can't create order");
             }
-
-            const {data} = await axios.post('/orders/create', {dishes, order_id});
-
-            dispatch(clearCart())
-            return data
-        } catch (error) {
-            return rejectWithValue("Can't create order");
         }
     }
 );
 
 export const getOrder = createAsyncThunk(
     'order/get',
-    async (_, {rejectWithValue}) => {
-        const cartItems =
-            localStorage.getItem("cartItems") !== null
-                ? JSON.parse(localStorage.getItem("cartItems"))
-                : [];
-        return await Promise.all(cartItems.map(async item => {
-            try {
-                const {data} = await axios.get(`/dishes/${item.id}`)
-                const { id, icon, name, weight, price } = data
-                return {...item, ...{ id, icon, name, weight, price }}
-            } catch (error) {
-                return rejectWithValue("Can't update cart");
+    async (_, {rejectWithValue, getState}) => {
+        try {
+            const state = getState();
+            const order_id = state.order.orderId
+            if (order_id) {
+                const {data} = await axios.get(`/orders/${order_id}`);
+
+                if (data.order_id === order_id){
+                    return data
+                } else {
+                    throw Error("Order isn't same")
+                }
             }
-        }))
+        } catch (error){
+            console.log(error)
+            rejectWithValue("Can't get order");
+        }
     }
 )
 
@@ -71,7 +82,7 @@ export const orderSlice = createSlice({
             state.message = "Order is created!"
             state.orderId = action.payload
         },
-        [createOrder.rejected]: (state, action) => {
+        [createOrder.rejected]: (state) => {
             state.isLoading = false
             state.message = "Order can't be created!"
         },
@@ -81,7 +92,8 @@ export const orderSlice = createSlice({
             state.isLoading = true
         },
         [getOrder.fulfilled]: (state, action) => {
-            state.orderItems = action.payload
+            state.dishes = action.payload.dishes
+            state.totalPrice = action.payload.total_price
             state.isLoading = false
         },
         [getOrder.rejected]: (state) => {

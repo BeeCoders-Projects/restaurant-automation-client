@@ -17,8 +17,8 @@ export default function OrderItem({dish}) {
                 </div>
                 <span className="text-gray-400">{dish.weight} g</span>
                 <div className="flex justify-between mt-auto unselectable">
-                    <span className="px-2 text-base">{dish.count}</span>
-                    <span className="ml-auto">{(dish.price * dish.count).toFixed(2)} ₴</span>
+                    <span className="px-2 text-base">{dish.quantity}</span>
+                    <span className="ml-auto">{dish.price} ₴</span>
                 </div>
             </div>
         </div>

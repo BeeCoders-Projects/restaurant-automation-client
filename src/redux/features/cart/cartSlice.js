@@ -95,6 +95,6 @@ function exportToLocal (items) {
     window.localStorage.setItem("cartItems", JSON.stringify(result))
 }
 
-function clearLocalCart () {
+export function clearLocalCart () {
     window.localStorage.setItem("cartItems", [])
 }
