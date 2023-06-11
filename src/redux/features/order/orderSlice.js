@@ -13,16 +13,25 @@ const initialState = {
 export const createOrder = createAsyncThunk (
     'order/create',
     async (_,
-           {rejectWithValue, dispatch}
+           {rejectWithValue, getState, dispatch}
     ) => {
         try {
-            const cartItems =
+            const state = getState();
+            const order_id = state.order.orderId
+
+            const dishes =
                 localStorage.getItem("cartItems") !== null
                     ? JSON.parse(localStorage.getItem("cartItems"))
                     : [];
+            for (let i = 0; i < dishes.length; i++) {
+                dishes[i].dish_id = dishes[i].id;
+                delete dishes[i].id;
+            }
 
-            console.log(cartItems);
+            const {data} = await axios.post('/orders/create', {dishes, order_id});
+
             dispatch(clearCart())
+            return data
         } catch (error) {
             return rejectWithValue("Can't create order");
         }
@@ -60,6 +69,7 @@ export const orderSlice = createSlice({
         [createOrder.fulfilled]: (state, action) => {
             state.isLoading = false
             state.message = "Order is created!"
+            state.orderId = action.payload
         },
         [createOrder.rejected]: (state, action) => {
             state.isLoading = false
