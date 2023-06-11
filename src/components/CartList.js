@@ -36,7 +36,7 @@ export function CartList() {
                         <Button primary yellow rounded_sm content_xl
                                 className="w-44 mx-auto mt-12 mb-8"
                                 onClick={() => handleOrder()}
-                        >Order</Button>
+                        >Замовити</Button>
                     </div>
                 </>
             }

@@ -47,7 +47,7 @@ function DishPage () {
                 <main className="overflow-auto w-full flex flex-col items-center px-8">
                     <div className="xl:w-[1280px] md:w-[740px]">
                         {dish.isLoading?
-                            <h1 className="text-5xl text-center">Page Loading...</h1>
+                            <h1 className="text-5xl text-center">Сторінка завантажується...</h1>
                             :
                             <div className="flex w-full h-fit">
                             <div
@@ -74,8 +74,8 @@ function DishPage () {
                                 <div className="flex flex-col items-end">
                                     <Link to="/">
                                         <Button
+                                            yellow
                                             style={{
-                                                backgroundColor:"#FFF200",
                                                 fontSize:"26px",
                                                 borderRadius:"15px",
                                                 width:"198px",

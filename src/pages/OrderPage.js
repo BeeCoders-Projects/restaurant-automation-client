@@ -25,7 +25,7 @@ export default function OrderPage () {
                         {
                             isLoading ?
                                 <span className="animate-pulse text-center my-5 uppercase font-montserrat text-xl
-                                tracking-widest mb-[300px]">Order Loading</span>
+                                tracking-widest mb-[300px]">Замовлення завантажується</span>
                                 :
                                 <main className="py-9 px-12 text-4xl w-full overflow-y-auto scrollbar-thumb-amber-200
              scrollbar-thin scrollbar-track-gray-200">

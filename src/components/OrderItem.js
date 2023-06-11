@@ -15,9 +15,10 @@ export default function OrderItem({dish}) {
                 <div className="flex items-center justify-between max-w-full">
                     <label className="truncate max-w-[260px]">{dish.name}</label>
                 </div>
-                <span className="text-gray-400">{dish.weight} g</span>
+                <span className="text-gray-400">{dish.weight} г</span>
                 <div className="flex justify-between mt-auto unselectable">
-                    <span className="px-2 text-base">{dish.quantity}</span>
+                    <span className="px-2 text-base">{(dish.price / dish.quantity).toFixed()} ₴</span>
+                    <span className="px-2 text-base">{dish.quantity} шт.</span>
                     <span className="ml-auto">{dish.price} ₴</span>
                 </div>
             </div>
