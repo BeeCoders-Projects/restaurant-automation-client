@@ -10,7 +10,7 @@ export default function OrderList() {
     return (
         <>
                 <div>
-                    <h2 className="py-4">Страви заказу</h2>
+                    <h2 className="py-4">Страви замовлення</h2>
                     <div className="flex flex-col overflow-y-auto overflow-x-hidden max-h-[450px]
                     scrollbar-thumb-amber-200 scrollbar-thin scrollbar-track-gray-200">
                         {orderList}
