@@ -51,7 +51,7 @@ export function CartItem({dish}){
                         size={25}
                         className="min-w-[25px] hover:text-yellow-400 cursor-pointer"/>
                 </div>
-                <span className="text-gray-400">{dish.weight} g</span>
+                <span className="text-gray-400">{dish.weight} г</span>
                 <div className="flex justify-between mt-auto unselectable">
                     <div className={`border-2 rounded transition overflow-hidden ${highlight ? 'border-red-400' : ''}`}>
                         <span className="inline-block w-5 h-full text-center

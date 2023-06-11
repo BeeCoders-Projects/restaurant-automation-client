@@ -60,10 +60,12 @@ export const getOrder = createAsyncThunk(
                 } else {
                     throw Error("Order isn't same")
                 }
+            } else {
+                throw Error("No order id")
             }
         } catch (error){
             console.log(error)
-            rejectWithValue("Can't get order");
+            return rejectWithValue("Can't get order");
         }
     }
 )
