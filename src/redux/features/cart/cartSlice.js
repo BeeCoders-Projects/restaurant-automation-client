@@ -55,6 +55,10 @@ export const cartSlice = createSlice({
                 item.count -= 1
             }
             exportToLocal(state.items);
+        },
+        clearCart: (state) => {
+            state.items = []
+            clearLocalCart()
         }
     },
     extraReducers: {
@@ -80,7 +84,8 @@ export const totalCartPrice = (state) => state.cart.items.reduce(
 export const {
     addItem,
     deleteItem,
-    manageCartItem
+    manageCartItem,
+    clearCart
 } = cartSlice.actions
 export default cartSlice.reducer
 
@@ -88,4 +93,8 @@ export default cartSlice.reducer
 function exportToLocal (items) {
     const result = items.map(({ id, count }) => ({ id, count }));
     window.localStorage.setItem("cartItems", JSON.stringify(result))
+}
+
+export function clearLocalCart () {
+    window.localStorage.setItem("cartItems", [])
 }

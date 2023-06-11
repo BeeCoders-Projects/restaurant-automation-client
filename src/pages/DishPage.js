@@ -5,6 +5,7 @@ import Speciality from "../components/Speciality";
 import {Link, useNavigate, useParams} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {getDish} from "../redux/features/dishes/dishSlice";
+import SideBar from "../components/SideBar";
 
 function DishPage () {
     const { dishId } = useParams();
@@ -39,7 +40,8 @@ function DishPage () {
         backgroundImage: `url(${dish.icon || null})`,
     };
     return (
-        <>
+        <div className="flex h-screen">
+            <SideBar/>
             <div className="grid h-full">
                 <Header/>
                 <main className="overflow-auto w-full flex flex-col items-center px-8">
@@ -90,7 +92,7 @@ function DishPage () {
                     </div>
                 </main>
             </div>
-        </>
+        </div>
     )
 }
 
