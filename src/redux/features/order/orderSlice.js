@@ -9,7 +9,8 @@ const initialState = {
         : null,
     message: null,
     dishes: null,
-    totalPrice: 0
+    totalPrice: 0,
+    totalQuantity: 0
 }
 
 export const createOrder = createAsyncThunk (
@@ -96,6 +97,7 @@ export const orderSlice = createSlice({
         [getOrder.fulfilled]: (state, action) => {
             state.dishes = action.payload.dishes
             state.totalPrice = action.payload.total_price
+            state.totalQuantity = action.payload.dishes.reduce((total, dish) => total + dish.quantity, 0);
             state.isLoading = false
         },
         [getOrder.rejected]: (state) => {

@@ -1,6 +1,5 @@
 import {TbNotes} from "react-icons/tb";
 import OrderList from "../components/OrderList";
-import DonateDrone from "../components/DonateDrone";
 import {useDispatch, useSelector} from "react-redux";
 import Button from "../components/Button";
 import {Link} from "react-router-dom";
@@ -8,7 +7,7 @@ import {useEffect} from "react";
 import {getOrder} from "../redux/features/order/orderSlice";
 
 export default function OrderPage () {
-    const {orderId, isLoading} = useSelector((state) => state.order);
+    const {orderId, isLoading, totalPrice, totalQuantity} = useSelector((state) => state.order);
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(getOrder())
@@ -31,7 +30,19 @@ export default function OrderPage () {
              scrollbar-thin scrollbar-track-gray-200">
                                     <div className="w-full flex justify-between">
                                         <OrderList/>
-                                        <DonateDrone/>
+                                        <div className="w-[480px] h-fit
+                                        rounded-xl shadow-2xl px-4 text-2xl flex flex-col self-center mr-auto ml-40">
+                                            <div className="flex justify-between py-5">
+                                                <span className="text-gray-400">Кількість</span>
+                                                <span>{totalQuantity} (шт)</span>
+                                            </div>
+                                            <div className="flex justify-between py-5 border-y">
+                                                <span>Все</span>
+                                                <span>{totalPrice} ₴</span>
+                                            </div>
+                                            <Button primary yellow rounded_sm content_xl
+                                                    className="w-44 py-4 self-center my-6">Оплатити</Button>
+                                        </div>
                                     </div>
                                 </main>
                         }
