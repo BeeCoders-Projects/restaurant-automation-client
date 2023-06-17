@@ -24,7 +24,7 @@ instance.interceptors.response.use(response => {
             window.location.href = '/auth';
         }
     }
-    if (error.response && error.response.status === 404) {
+    if (error.response && error.response.status === 404 && error.config.method === "get") {
         window.location.href = '/';
     }
     return Promise.reject(error);

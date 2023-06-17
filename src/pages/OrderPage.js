@@ -5,13 +5,15 @@ import Button from "../components/Button";
 import {Link} from "react-router-dom";
 import {useEffect} from "react";
 import {getOrder} from "../redux/features/order/orderSlice";
+import PromoSection from "../components/PromoSection";
 
 export default function OrderPage () {
-    const {orderId, isLoading, totalPrice, totalQuantity} = useSelector((state) => state.order);
+    const {orderId, isLoading, totalPrice,
+        totalQuantity, discountPrice, currentPrice, promo} = useSelector((state) => state.order);
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(getOrder())
-    }, [dispatch])
+    }, [promo.code, dispatch])
     return (
         <>
             {
@@ -37,25 +39,28 @@ export default function OrderPage () {
                                                     <span className="text-gray-400">Кількість</span>
                                                     <span>{totalQuantity} (шт)</span>
                                                 </div>
-                                                <div className="flex justify-between py-2">
-                                                    <span className="text-gray-400">Сума без знижки</span>
-                                                    <span>{totalQuantity} ₴</span>
-                                                </div>
-                                                <div className="flex justify-between pt-2 pb-5">
-                                                    <span className="text-gray-400">Знижка ({totalQuantity}%)</span>
-                                                    <span>{totalQuantity} ₴</span>
-                                                </div>
+                                                {discountPrice ?
+                                                    <>
+                                                        <div className="flex justify-between py-2">
+                                                            <span className="text-gray-400">Сума без знижки</span>
+                                                            <span>{totalPrice} ₴</span>
+                                                        </div>
+                                                        <div className="flex justify-between pt-2 pb-5">
+                                                            <span className="text-gray-400">
+                                                                Знижка ({((discountPrice / totalPrice) * 100).toFixed(1)}%)
+                                                            </span>
+                                                            <span className="text-red-600">- {discountPrice} ₴</span>
+                                                        </div>
+                                                    </> : null
+                                                }
                                                 <div className="flex justify-between py-5 border-y">
                                                     <span>Все</span>
-                                                    <span>{totalPrice} ₴</span>
+                                                    <span>{currentPrice || totalPrice} ₴</span>
                                                 </div>
                                                 <Button primary yellow rounded_sm content_xl
                                                         className="w-44 max-h-[55px] py-4 px-4 self-center my-6">Оплатити</Button>
                                             </div>
-                                            <div className="py-14 pl-4">
-                                                <span className="text-2xl pr-10">Промокод</span>
-                                                <input className="w-[300px] h-[50px] text-xl text-center border border-black rounded-2xl" placeholder="Введіть ваш промокод"></input>
-                                            </div>
+                                            <PromoSection/>
                                         </div>
                                     </div>
                                 </main>

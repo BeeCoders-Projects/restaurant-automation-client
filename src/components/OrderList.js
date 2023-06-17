@@ -15,10 +15,12 @@ export default function OrderList() {
                     scrollbar-thumb-amber-200 scrollbar-thin scrollbar-track-gray-200">
                     {orderList}
                 </div>
-                <Link to="/">
-                    <Button primary yellow rounded_sm content_xl
-                            className="w-44 max-h-[55px] py-4 mr-8 py-5">Назад</Button>
-                </Link>
+                <div className="w-fit">
+                    <Link to="/">
+                        <Button primary yellow rounded_sm content_xl
+                                className="w-44 max-h-[55px] py-4 my-5">Назад</Button>
+                    </Link>
+                </div>
             </div>
         </>
     )
