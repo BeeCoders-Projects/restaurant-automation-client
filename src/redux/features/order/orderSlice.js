@@ -10,7 +10,12 @@ const initialState = {
     message: null,
     dishes: null,
     totalPrice: 0,
-    totalQuantity: 0
+    totalQuantity: 0,
+    payment: {
+        success: false,
+        message: null,
+        isLoading: false,
+    }
 }
 
 export const createOrder = createAsyncThunk (
@@ -71,6 +76,23 @@ export const getOrder = createAsyncThunk(
     }
 )
 
+export const doPayment = createAsyncThunk(
+    'order/payment',
+    async ({order_id, payment_type, card_info}, {rejectWithValue}) => {
+        try {
+            const {data} = await axios.post('/orders/payment', {order_id, payment_type, card_info})
+
+            return data
+        } catch (error){
+            if (error.response.status === 409){
+                return error.response.data
+            } else {
+                return rejectWithValue(error.response.data)
+            }
+        }
+    }
+)
+
 export const orderSlice = createSlice({
     name: 'order',
     initialState,
@@ -103,6 +125,21 @@ export const orderSlice = createSlice({
         [getOrder.rejected]: (state) => {
             state.isLoading = false
         },
+
+        // Payment processing
+
+        [doPayment.pending]: (state) => {
+            state.payment.isLoading = true
+        },
+        [doPayment.fulfilled]: (state, action) => {
+            state.payment.message = action.payload
+            state.payment.isLoading = false
+            state.payment.success = true
+        },
+        [doPayment.rejected]: (state, action) => {
+            state.payment.message = action.payload
+            state.payment.isLoading = false
+        }
     }
 })
 
