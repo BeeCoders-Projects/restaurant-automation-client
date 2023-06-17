@@ -6,7 +6,7 @@ import {useState} from "react";
 import {doPayment} from "../redux/features/order/orderSlice";
 
 export default function PaymentInit({handleClick}) {
-    const {totalPrice, totalQuantity, orderId} = useSelector((state) => state.order);
+    const {totalPrice, totalQuantity, orderId, currentPrice} = useSelector((state) => state.order);
     const [paymentMethod, setPaymentMethod] = useState('debit');
     const dispatch = useDispatch();
 
@@ -21,7 +21,7 @@ export default function PaymentInit({handleClick}) {
         </div>
         <div className="flex justify-between py-5 border-t text-3xl">
             <span>Все</span>
-            <span>{totalPrice} ₴</span>
+            <span>{currentPrice || totalPrice} ₴</span>
         </div>
         <div className="flex flex-col items-center">
             <label className='text-3xl my-3'>Виберіть метод оплати</label>
