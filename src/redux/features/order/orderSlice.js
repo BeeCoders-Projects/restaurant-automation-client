@@ -10,7 +10,15 @@ const initialState = {
     message: null,
     dishes: null,
     totalPrice: 0,
+    currentPrice: null,
+    discountPrice: null,
     totalQuantity: 0,
+    promo: {
+        code: null,
+        invalid: false,
+        message: null,
+        isLoading: false
+    },
     payment: {
         success: false,
         message: null,
@@ -76,6 +84,18 @@ export const getOrder = createAsyncThunk(
     }
 )
 
+export const getPromo = createAsyncThunk(
+    'order/promo',
+    async({promocode, order_id}, { rejectWithValue}) => {
+        try {
+            const {data} = await axios.post('/orders/promocode', {promocode, order_id});
+            return {data, promocode}
+        }catch (error) {
+            return rejectWithValue(error.response.data)
+        }
+    }
+)
+
 export const doPayment = createAsyncThunk(
     'order/payment',
     async ({order_id, payment_type, card_info}, {rejectWithValue}) => {
@@ -121,9 +141,30 @@ export const orderSlice = createSlice({
             state.totalPrice = action.payload.total_price
             state.totalQuantity = action.payload.dishes.reduce((total, dish) => total + dish.quantity, 0);
             state.isLoading = false
+
+            state.currentPrice = action.payload?.current_sum
+            state.discountPrice = action.payload?.discount_sum
         },
         [getOrder.rejected]: (state) => {
             state.isLoading = false
+        },
+
+        // Promocode
+        [getPromo.pending]: (state) => {
+            state.promo.message = null
+            state.promo.invalid = false
+            state.promo.isLoading = true
+        },
+        [getPromo.fulfilled]: (state, action) => {
+            state.promo.message = action.payload.data
+            state.promo.invalid = false
+            state.promo.isLoading = false
+            state.promo.code = action.payload.promocode
+        },
+        [getPromo.rejected]: (state, action) => {
+            state.promo.message = action.payload
+            state.promo.invalid = true
+            state.promo.isLoading = false
         },
 
         // Payment processing
