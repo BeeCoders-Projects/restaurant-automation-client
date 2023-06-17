@@ -4,9 +4,10 @@ import Button from "./Button";
 import {useSelector} from "react-redux";
 import {useState} from "react";
 
-export default function PaymentInit() {
+export default function PaymentInit({handleClick}) {
     const {totalPrice, totalQuantity} = useSelector((state) => state.order);
     const [paymentMethod, setPaymentMethod] = useState('debit');
+
     return (<>
         <div className="flex justify-between py-5 text-3xl">
             <span className="text-gray-400">Кількість</span>
@@ -39,6 +40,7 @@ export default function PaymentInit() {
         </div>
         <Button yellow rounded_sm
                 className="py-4 px-20 self-center mt-6 bg-[#FFF200] text-3xl"
+                onClick={() => {paymentMethod === 'debit'? handleClick('debit') : handleClick('cash')}}
         >Оплатити</Button>
     </>)
 }
