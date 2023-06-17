@@ -1,12 +1,18 @@
 import {BsCreditCard} from "react-icons/bs";
 import {IoWalletOutline} from "react-icons/io5";
 import Button from "./Button";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {useState} from "react";
+import {doPayment} from "../redux/features/order/orderSlice";
 
 export default function PaymentInit({handleClick}) {
-    const {totalPrice, totalQuantity} = useSelector((state) => state.order);
+    const {totalPrice, totalQuantity, orderId} = useSelector((state) => state.order);
     const [paymentMethod, setPaymentMethod] = useState('debit');
+    const dispatch = useDispatch();
+
+    const handleCashPayment = () => {
+        dispatch(doPayment({order_id: orderId, payment_type: "CASH"}))
+    }
 
     return (<>
         <div className="flex justify-between py-5 text-3xl">
@@ -40,7 +46,7 @@ export default function PaymentInit({handleClick}) {
         </div>
         <Button yellow rounded_sm
                 className="py-4 px-20 self-center mt-6 bg-[#FFF200] text-3xl"
-                onClick={() => {paymentMethod === 'debit'? handleClick('debit') : handleClick('cash')}}
+                onClick={() => {paymentMethod === 'debit'? handleClick('debit') : handleCashPayment()}}
         >Оплатити</Button>
     </>)
 }

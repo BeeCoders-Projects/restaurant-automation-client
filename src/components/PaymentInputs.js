@@ -16,11 +16,11 @@ export default function PaymentInputs({data , setData}) {
 
     useEffect(() => {
         if (cardNumber && cardDate && cardCvv){
-            setData({cardNumber, cardDate, cardCvv})
+            setData({number: cardNumber, expire_at: cardDate, cvv: cardCvv})
         } else {
             setData(null)
         }
-    }, [cardNumber, cardDate, cardCvv])
+    }, [cardNumber, cardDate, cardCvv, setData])
 
     const handleCardNumberChange = (e) => {
         setCardNumber(null)
@@ -78,7 +78,7 @@ export default function PaymentInputs({data , setData}) {
                 ${cardNumberError ? 'text-red-500' : 'text-zinc-500'}`}>Card number</label>
                 {
                     cardNumberError ? <p className="mt-2 text-red-500 text-sm absolute top-14">
-                        *Не правильний формат номеру карти
+                        *Неправильний формат номеру карти
                     </p> : null
                 }
             </label>
@@ -99,7 +99,7 @@ export default function PaymentInputs({data , setData}) {
                         Exp Date</label>
                     {
                         dateError ? <p className="mt-2 text-red-500 text-sm absolute top-14">
-                            *Не правильний формат дати закінчення дії карти
+                            *Неправильний формат дати закінчення дії карти
                         </p> : null
                     }
                 </label>
@@ -116,7 +116,7 @@ export default function PaymentInputs({data , setData}) {
                 top-[-16px] left-4 text-sm p-1 uppercase ${cvvError ? 'text-red-500' : 'text-zinc-500'}`}>CVV</label>
                     {
                         cvvError ? <p className="mt-2 text-red-500 text-sm absolute top-14">
-                            *Не правильний формат cvv
+                            *Неправильний формат CVV
                         </p> : null
                     }
                 </label>
