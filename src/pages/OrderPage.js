@@ -3,14 +3,19 @@ import OrderList from "../components/OrderList";
 import {useDispatch, useSelector} from "react-redux";
 import Button from "../components/Button";
 import {Link} from "react-router-dom";
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 import {getOrder} from "../redux/features/order/orderSlice";
 import PromoSection from "../components/PromoSection";
+import Modal from "../components/Modal";
+import PaymentPage from "./PaymentPage";
 
 export default function OrderPage () {
     const {orderId, isLoading, totalPrice,
         totalQuantity, discountPrice, currentPrice, promo} = useSelector((state) => state.order);
     const dispatch = useDispatch();
+    const [modalActive, setModalActive] = useState(false);
+
+
     useEffect(() => {
         dispatch(getOrder())
     }, [promo.code, dispatch])
@@ -58,10 +63,15 @@ export default function OrderPage () {
                                                     <span>{currentPrice || totalPrice} ₴</span>
                                                 </div>
                                                 <Button primary yellow rounded_sm content_xl
-                                                        className="w-44 max-h-[55px] py-4 px-4 self-center my-6">Оплатити</Button>
+                                                        className="w-44 max-h-[55px] py-4 px-4 self-center my-6"
+                                                    onClick={() => setModalActive(true)}
+                                            >Оплатити</Button>
                                             </div>
                                             <PromoSection/>
                                         </div>
+                                        <Modal active={modalActive} setActive={setModalActive}>
+                                            <PaymentPage/>
+                                        </Modal>
                                     </div>
                                 </main>
                         }
