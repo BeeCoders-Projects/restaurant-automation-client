@@ -37,11 +37,7 @@ function LoginPage(){
 
     const handleSubmit = () => {
         if(isUsernameValid() && isPasswordValid()){
-            try {
-                dispatch(loginUser({ username, password }))
-            } catch (error) {
-                console.log(error)
-            }
+            dispatch(loginUser({ username, password }))
         }else {
             setError(true)
         }

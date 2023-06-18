@@ -1,6 +1,8 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import axios from '../../../utils/axios'
 import jwtDecode from "jwt-decode";
+import {clearLocalCart} from "../cart/cartSlice";
+import {clearLocalOrder} from "../order/orderSlice";
 
 const initialState = {
     name: null,
@@ -22,6 +24,9 @@ export const loginUser = createAsyncThunk(
                 const token = headers['authorization']
                 window.localStorage.setItem('token', token);
                 const decodedToken = jwtDecode(token);
+
+                clearLocalCart();
+                clearLocalOrder();
 
                 return {decodedToken, token}
             }

@@ -6,17 +6,21 @@ import StartPage from "../pages/StartPage";
 import {useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {clearLocalCart} from "../redux/features/cart/cartSlice";
+import {clearLocalOrder} from "../redux/features/order/orderSlice";
 
 function MenuLayout({cart, children}){
     const {orderId} = useSelector((state) => state.order);
-    const [showMenu, setShowMenu] = useState(orderId?true:false);
+    const [showMenu, setShowMenu] = useState(orderId);
     const {name} = useSelector((state) => state.auth);
     const dispatch = useDispatch();
 
     const handleClick = () => {
+        clearLocalCart();
+        clearLocalOrder();
+
         setShowMenu(true);
         dispatch(changeTableStatus({table_name: name, status: "Occupied"}));
-        clearLocalCart();
+
     }
 
     return (

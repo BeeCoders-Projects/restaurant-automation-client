@@ -1,11 +1,9 @@
-import Header from "../components/Header";
 import Button from "../components/Button"
 import React, {useEffect} from "react";
 import Speciality from "../components/Speciality";
 import {Link, useNavigate, useParams} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {getDish} from "../redux/features/dishes/dishSlice";
-import SideBar from "../components/SideBar";
 
 function DishPage () {
     const { dishId } = useParams();
@@ -40,16 +38,13 @@ function DishPage () {
         backgroundImage: `url(${dish.icon || null})`,
     };
     return (
-        <div className="flex h-screen">
-            <SideBar/>
-            <div className="grid h-full">
-                <Header/>
-                <main className="overflow-auto w-full flex flex-col items-center px-8">
-                    <div className="xl:w-[1280px] md:w-[740px]">
-                        {dish.isLoading?
-                            <h1 className="text-5xl text-center">Сторінка завантажується...</h1>
-                            :
-                            <div className="flex w-full h-fit">
+        <>
+            <main className="overflow-auto w-full flex flex-col items-center px-8">
+                <div className="xl:w-[1280px] md:w-[740px] my-auto">
+                    {dish.isLoading?
+                        <h1 className="text-5xl text-center">Сторінка завантажується...</h1>
+                        :
+                        <div className="flex w-full h-fit">
                             <div
                                 className="min-w-[378px] xl:min-w-[478px] grow relative
                                 overflow-hidden rounded-xl bg-cover bg-center mr-8"
@@ -87,12 +82,10 @@ function DishPage () {
                                 </div>
                             </div>
                         </div>
-                        }
-
-                    </div>
-                </main>
-            </div>
-        </div>
+                    }
+                </div>
+            </main>
+        </>
     )
 }
 

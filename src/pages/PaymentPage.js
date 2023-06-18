@@ -1,13 +1,20 @@
 import PaymentInit from "../components/PaymentInit";
 import PaymentDebit from "../components/PaymentDebit";
 import {useEffect, useState} from "react";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {GoSync} from "react-icons/go";
 import Button from "../components/Button";
+import {clearLocalOrder, clearOrder} from "../redux/features/order/orderSlice";
+import {clearCart} from "../redux/features/cart/cartSlice";
+import {changeTableStatus} from "../redux/features/auth/authSlice";
 
 export default function PaymentPage(){
     const {payment} = useSelector(state => state.order)
+    const {name} = useSelector(state => state.auth)
+
     const [activePage, setActivePage] = useState('init');
+
+    const dispatch = useDispatch();
 
     useEffect(() => {
         if (payment.message) {
@@ -21,7 +28,13 @@ export default function PaymentPage(){
     };
 
     const closeSession = () => {
+        dispatch(clearCart())
+        dispatch(clearOrder())
+        dispatch(changeTableStatus({table_name: name, status: "Free"}))
 
+        clearLocalOrder()
+
+        window.location.href = '/';
     }
     return (
     <div className="w-full h-fit flex flex-col align-middle">
