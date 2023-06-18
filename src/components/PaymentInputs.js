@@ -26,13 +26,15 @@ export default function PaymentInputs({data , setData}) {
         setCardNumber(null)
         const enteredCardNumber = e.target.value.replace(/\s/g, '');
 
-        if (enteredCardNumber.length !== 16) {
-            setCardNumberError(true)
-        } else if (!validateCreditCardNumber(enteredCardNumber)){
+        if (enteredCardNumber.length > 19 || enteredCardNumber.length < 13) {
             setCardNumberError(true)
         } else {
-            setCardNumberError(false)
-            setCardNumber(enteredCardNumber)
+            if (!validateCreditCardNumber(enteredCardNumber) && enteredCardNumber.length === 16){
+                setCardNumberError(true)
+            } else {
+                setCardNumberError(false)
+                setCardNumber(enteredCardNumber)
+            }
         }
     }
     const handleDateChange = (e) => {
@@ -67,7 +69,7 @@ export default function PaymentInputs({data , setData}) {
         <div className="flex flex-col card text-2xl">
             <label className="relative w-full">
                 <InputMask
-                    mask="9999 9999 9999 9999"
+                    mask="9999 9999 9999 9999 999"
                     className={`rounded-xl border w-full h-16 peer px-8 py-2 
                     ${cardNumberError ? 'border-red-500' : 'border-zinc-500'}`}
                     maskChar=""

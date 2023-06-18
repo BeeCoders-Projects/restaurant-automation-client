@@ -4,15 +4,18 @@ import {useDispatch, useSelector} from "react-redux";
 import Button from "../components/Button";
 import {Link} from "react-router-dom";
 import {useEffect, useState} from "react";
-import {getOrder} from "../redux/features/order/orderSlice";
+import {clearLocalOrder, clearOrder, getOrder} from "../redux/features/order/orderSlice";
 import PromoSection from "../components/PromoSection";
 import Modal from "../components/Modal";
 import PaymentPage from "./PaymentPage";
+import {clearCart} from "../redux/features/cart/cartSlice";
+import {changeTableStatus} from "../redux/features/auth/authSlice";
 
 export default function OrderPage () {
+    const {name} = useSelector(state => state.auth)
     const {orderId, isLoading, totalPrice,
         totalQuantity, discountPrice, currentPrice, promo,
-        discountPercentage} = useSelector((state) => state.order);
+        discountPercentage, payment} = useSelector((state) => state.order);
     const dispatch = useDispatch();
     const [modalActive, setModalActive] = useState(false);
 
@@ -20,6 +23,25 @@ export default function OrderPage () {
     useEffect(() => {
         dispatch(getOrder())
     }, [promo.code, dispatch])
+
+    const closeFunc = () => {
+        if (payment.success){
+            closeSession()
+        } else {
+            setModalActive(false)
+        }
+    }
+
+    const closeSession = () => {
+        dispatch(clearCart())
+        dispatch(clearOrder())
+        dispatch(changeTableStatus({table_name: name, status: "Free"}))
+
+        clearLocalOrder()
+
+        window.location.href = '/';
+    }
+
     return (
         <>
             {
@@ -70,7 +92,7 @@ export default function OrderPage () {
                                             </div>
                                             <PromoSection/>
                                         </div>
-                                        <Modal active={modalActive} setActive={setModalActive}>
+                                        <Modal active={modalActive} closeFunc={closeFunc}>
                                             <PaymentPage/>
                                         </Modal>
                                     </div>

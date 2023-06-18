@@ -9,12 +9,11 @@ import {clearCart} from "../redux/features/cart/cartSlice";
 import {changeTableStatus} from "../redux/features/auth/authSlice";
 
 export default function PaymentPage(){
-    const {payment} = useSelector(state => state.order)
+    const dispatch = useDispatch();
     const {name} = useSelector(state => state.auth)
+    const {payment} = useSelector(state => state.order)
 
     const [activePage, setActivePage] = useState('init');
-
-    const dispatch = useDispatch();
 
     useEffect(() => {
         if (payment.message) {
@@ -36,6 +35,7 @@ export default function PaymentPage(){
 
         window.location.href = '/';
     }
+
     return (
     <div className="w-full h-fit flex flex-col align-middle">
         {payment.isLoading ? <GoSync className="animate-spin self-center"/> :
