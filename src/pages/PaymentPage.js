@@ -19,17 +19,23 @@ export default function PaymentPage(){
     const handlePageChange = (page) => {
         setActivePage(page);
     };
+
+    const closeSession = () => {
+
+    }
     return (
     <div className="w-full h-fit flex flex-col align-middle">
         {payment.isLoading ? <GoSync className="animate-spin self-center"/> :
         <>
-            {activePage === 'message'? <>
-                <p className="text-2xl w-full text-center">{payment.message}</p>
-                <Button yellow rounded_sm
-                        className="py-4 px-20 self-center mt-6 bg-[#FFF200] text-3xl"
-                        onClick={() => setActivePage('init')}
-                >Ок</Button>
-            </> : null}
+            {activePage === 'message'?
+                <>
+                    <p className="text-2xl w-full text-center">{payment.message}</p>
+                    <Button yellow rounded_sm
+                            className="py-4 px-20 self-center mt-6 bg-[#FFF200] text-3xl"
+                            onClick={() => {payment.success ? closeSession(): setActivePage('init')}}
+                    >{payment.success ? "Закінчити" : "Ок"}</Button>
+                </>
+                : null}
             {activePage === 'init' ? <PaymentInit handleClick={handlePageChange}/> : null}
             {activePage === 'debit' ? <PaymentDebit handleClick={handlePageChange}/> : null}
         </>
