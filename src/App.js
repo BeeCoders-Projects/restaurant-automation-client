@@ -24,7 +24,7 @@ function App() {
                 <Route path="/" element={<MenuLayout cart={true}><MainMenuPage/></MenuLayout>}/>
                 <Route path="/auth" element={<AuthLayout/>}/>
                 <Route path="/order" element={<MenuLayout><OrderPage/></MenuLayout>}/>
-                <Route path="/dish/:dishId" element={<DishPage/>}/>
+                <Route path="/dish/:dishId" element={<MenuLayout><DishPage/></MenuLayout>}/>
             </Routes>
         </div>
     );

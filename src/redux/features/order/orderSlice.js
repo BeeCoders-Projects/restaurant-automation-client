@@ -116,7 +116,11 @@ export const doPayment = createAsyncThunk(
 export const orderSlice = createSlice({
     name: 'order',
     initialState,
-    reducers: {},
+    reducers: {
+        clearOrder: (state) => {
+            state.orderId = null
+        }
+    },
     extraReducers: {
         // Create Order
         [createOrder.pending]: (state) => {
@@ -184,4 +188,9 @@ export const orderSlice = createSlice({
     }
 })
 
+export const {clearOrder} = orderSlice.actions
 export default orderSlice.reducer
+export function clearLocalOrder () {
+    window.localStorage.removeItem("orderId")
+}
+
