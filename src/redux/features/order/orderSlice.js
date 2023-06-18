@@ -12,6 +12,7 @@ const initialState = {
     totalPrice: 0,
     currentPrice: null,
     discountPrice: null,
+    discountPercentage: null,
     totalQuantity: 0,
     promo: {
         code: null,
@@ -148,6 +149,7 @@ export const orderSlice = createSlice({
 
             state.currentPrice = action.payload?.current_sum
             state.discountPrice = action.payload?.discount_sum
+            state.discountPercentage = action.payload?.discount_percentage
         },
         [getOrder.rejected]: (state) => {
             state.isLoading = false

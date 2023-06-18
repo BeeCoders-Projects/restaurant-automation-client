@@ -11,7 +11,8 @@ import PaymentPage from "./PaymentPage";
 
 export default function OrderPage () {
     const {orderId, isLoading, totalPrice,
-        totalQuantity, discountPrice, currentPrice, promo} = useSelector((state) => state.order);
+        totalQuantity, discountPrice, currentPrice, promo,
+        discountPercentage} = useSelector((state) => state.order);
     const dispatch = useDispatch();
     const [modalActive, setModalActive] = useState(false);
 
@@ -52,7 +53,7 @@ export default function OrderPage () {
                                                         </div>
                                                         <div className="flex justify-between pt-2 pb-5">
                                                             <span className="text-gray-400">
-                                                                Знижка ({((discountPrice / totalPrice) * 100).toFixed(1)}%)
+                                                                Знижка ({discountPercentage}%)
                                                             </span>
                                                             <span className="text-red-600">- {discountPrice} ₴</span>
                                                         </div>
