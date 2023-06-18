@@ -4,6 +4,7 @@ import dishMenuSlice from "./features/dishes/dishMenuSlice";
 import dishSlice from "./features/dishes/dishSlice";
 import cartSlice from "./features/cart/cartSlice";
 import orderSlice from "./features/order/orderSlice";
+import statSlice from "./features/stat/statSlice";
 
 export const store = configureStore({
     reducer: {
@@ -12,5 +13,6 @@ export const store = configureStore({
         dish: dishSlice,
         cart: cartSlice,
         order: orderSlice,
+        stat: statSlice,
     },
 })
