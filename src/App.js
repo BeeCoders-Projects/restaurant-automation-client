@@ -7,11 +7,13 @@ import {useEffect} from "react";
 import {checkIsAuth, getMe} from "./redux/features/auth/authSlice";
 import OrderPage from "./pages/OrderPage";
 import MainMenuPage from "./pages/MainMenuPage";
+import StatPage from "./pages/admin/StatPage";
 
 function App() {
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
-    const isAuth = useSelector(checkIsAuth);
+    const {role} = useSelector(state => state.auth)
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
+    const isAuth = useSelector(checkIsAuth)
 
     useEffect(() => {
         dispatch(getMe())
@@ -21,7 +23,16 @@ function App() {
     return (
         <div className="w-full h-screen flex flex-col font-didactGothic">
             <Routes>
-                <Route path="/" element={<MenuLayout cart={true}><MainMenuPage/></MenuLayout>}/>
+
+                {role === 'ADMIN'?
+                    <>
+                        <Route path="/" element={<MenuLayout><StatPage/></MenuLayout>}/>
+                        <Route path="/menu" element={<MenuLayout cart={true}><MainMenuPage/></MenuLayout>}/>
+                    </>
+                    :
+                    <Route path="/" element={<MenuLayout cart={true}><MainMenuPage/></MenuLayout>}/>
+                }
+
                 <Route path="/auth" element={<AuthLayout/>}/>
                 <Route path="/order" element={<MenuLayout><OrderPage/></MenuLayout>}/>
                 <Route path="/dish/:dishId" element={<MenuLayout><DishPage/></MenuLayout>}/>

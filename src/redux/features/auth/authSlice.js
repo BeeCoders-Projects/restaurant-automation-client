@@ -10,6 +10,7 @@ const initialState = {
     token: "token",
     isLoading: false,
     status: null,
+    role: null,
 }
 
 export const loginUser = createAsyncThunk(
@@ -88,6 +89,7 @@ export const authSlice = createSlice({
             state.sub = action.payload.decodedToken?.sub
             state.token = action.payload?.token
             state.status = action.payload?.message
+            state.role = action.payload?.decodedToken.role
         },
         [loginUser.rejected]: (state, action) => {
             state.status = action.payload?.message
@@ -98,9 +100,10 @@ export const authSlice = createSlice({
             state.isLoading = true
         },
         [getMe.fulfilled]: (state, action) => {
-            state.name = action.payload?.decodedToken?.name
-            state.sub = action.payload?.decodedToken?.sub
+            state.name = action.payload?.decodedToken.name
+            state.sub = action.payload?.decodedToken.sub
             state.token = action.payload?.token
+            state.role = action.payload?.decodedToken.role
             state.isLoading = false
         },
         [getMe.rejected]: (state) => {
