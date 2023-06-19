@@ -90,18 +90,22 @@ export default function StatPage () {
                     </div>
                 </div>
 
-                <table className="table-auto w-[875px]">
-                    <thead>
-                    <tr>
-                        <th className="border-b"></th>
-                        <th className="border-b font-medium p-4 pl-8 pt-0 pb-3 text-slate-400 text-left">Власник промокоду</th>
-                        <th className="border-b font-medium p-4 pl-8 pt-0 pb-3 text-slate-400 text-left">Кількість використань</th>
-                    </tr>
-                    </thead>
-                    <tbody className="bg-white">
+                <div className="
+                h-[500px]
+                overflow-auto scrollbar-thumb-amber-200 scrollbar-thin scrollbar-track-gray-100">
+                    <table className="table-auto w-[875px]">
+                        <thead>
+                        <tr>
+                            <th className="border-b"></th>
+                            <th className="border-b font-medium p-4 pl-8 pt-0 pb-3 text-slate-400 text-left">Власник промокоду</th>
+                            <th className="border-b font-medium p-4 pl-8 pt-0 pb-3 text-slate-400 text-left">Кількість використань</th>
+                        </tr>
+                        </thead>
+                        <tbody className="bg-white">
                         {statRows}
-                    </tbody>
-                </table>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     )
