@@ -168,7 +168,7 @@ export const orderSlice = createSlice({
             state.promo.code = action.payload.promocode
         },
         [getPromo.rejected]: (state, action) => {
-            state.promo.message = action.payload
+            state.promo.message = "*Введений промокод не є доступним для застосування"
             state.promo.invalid = true
             state.promo.isLoading = false
         },
