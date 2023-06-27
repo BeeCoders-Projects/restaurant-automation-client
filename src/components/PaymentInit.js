@@ -20,7 +20,7 @@ export default function PaymentInit({handleClick}) {
             <span>{totalQuantity} (шт)</span>
         </div>
         <div className="flex justify-between py-5 border-t text-3xl">
-            <span>Все</span>
+            <span>Всього</span>
             <span>{currentPrice || totalPrice} ₴</span>
         </div>
         <div className="flex flex-col items-center">
