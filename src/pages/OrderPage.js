@@ -82,7 +82,7 @@ export default function OrderPage () {
                                                     </> : null
                                                 }
                                                 <div className="flex justify-between py-5 border-y">
-                                                    <span>Все</span>
+                                                    <span>Всього</span>
                                                     <span>{currentPrice || totalPrice} ₴</span>
                                                 </div>
                                                 <Button primary yellow rounded_sm content_xl
